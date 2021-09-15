@@ -1,4 +1,4 @@
-package xyz.morlotti.woocommerce.client;
+package xyz.morlotti.woocommerce.client.proxy;
 
 import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
 
-public class Interceptor
+public class WooCommerceClientsConfiguration
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
