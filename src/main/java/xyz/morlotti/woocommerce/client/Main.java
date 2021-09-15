@@ -11,8 +11,12 @@ import xyz.morlotti.woocommerce.client.service.Products;
 @EnableFeignClients
 public class Main implements CommandLineRunner
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	public Products products;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	public static void main(String[] args)
 	{
@@ -21,9 +25,13 @@ public class Main implements CommandLineRunner
 		System.exit(0);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public void run(String... args) throws Exception
 	{
 		System.out.println(products.getProducts());
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

@@ -10,6 +10,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.Random;
 
 public class WooCommerceClientsConfiguration
 {
@@ -38,11 +40,13 @@ public class WooCommerceClientsConfiguration
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
-			String nonce = "GdigHTLRTbL";
+			String nonce = generateNonce(11);
 
 			String timestamp = String.valueOf(Instant.now().getEpochSecond());
 
 			/*--------------------------------------------------------------------------------------------------------*/
+
+			System.out.println(requestTemplate.getRequestVariables());
 
 			String signature;
 
@@ -54,6 +58,9 @@ public class WooCommerceClientsConfiguration
 			{
 				signature = "";
 			}
+
+			System.out.println("-------------------");
+			System.out.println(signature);
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
@@ -104,6 +111,26 @@ public class WooCommerceClientsConfiguration
 		byte[] bytes = mac.doFinal(toSign.getBytes(StandardCharsets.UTF_8));
 
 		return Base64.getEncoder().encodeToString(bytes);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	private static final String NONCE_BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	private String generateNonce(int size)
+	{
+		Random random = new Random();
+
+		StringBuilder stringBuilder = new StringBuilder(size);
+
+		for(int i = 0; i < size; i++)
+		{
+			stringBuilder.append(NONCE_BASE.charAt(random.nextInt(NONCE_BASE.length())));
+		}
+
+		return stringBuilder.toString();
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
