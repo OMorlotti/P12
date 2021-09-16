@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import xyz.morlotti.woocommerce.client.service.Products;
 
-@SpringBootApplication
-@EnableFeignClients
+//@SpringBootApplication
+//@EnableFeignClients
 public class Main implements CommandLineRunner
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
