@@ -32,6 +32,8 @@ public class Test implements CommandLineRunner
 	{
 		try
 		{
+			System.out.println(products.getOrders());
+
 			System.out.println(products.getProducts());
 		}
 		catch(Exception e)

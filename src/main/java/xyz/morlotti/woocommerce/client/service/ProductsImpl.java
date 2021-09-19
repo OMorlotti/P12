@@ -12,6 +12,11 @@ public class ProductsImpl implements Products
 	@Autowired
 	private WooCommerceClients wooCommerceClients;
 
+	public List<Object> getOrders()
+	{
+		return wooCommerceClients.getOrders();
+	}
+
 	public List<Object> getProducts()
 	{
 		return wooCommerceClients.getProducts();
