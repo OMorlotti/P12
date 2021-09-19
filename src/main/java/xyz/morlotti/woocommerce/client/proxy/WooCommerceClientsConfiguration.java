@@ -1,15 +1,16 @@
 package xyz.morlotti.woocommerce.client.proxy;
 
 import feign.RequestInterceptor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.Base64;
+import java.util.Random;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Random;
 
 public class WooCommerceClientsConfiguration
 {
@@ -44,7 +45,11 @@ public class WooCommerceClientsConfiguration
 
 			String nonce = generateNonce(11);
 
-			String timestamp = Long.toString(System.currentTimeMillis() / 1000L);
+			String timestamp = generateTimestamp();
+
+			/*--------------------------------------------------------------------------------------------------------*/
+
+			String url = (baseUrl + requestTemplate.url()).replaceAll("(?<!:)//", "/");
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
@@ -52,26 +57,20 @@ public class WooCommerceClientsConfiguration
 
 			try
 			{
-				signature = buildSignature(requestTemplate.method(), "products", nonce, timestamp);
+				signature = buildSignature(requestTemplate.method(), url, nonce, timestamp);
 			}
 			catch(Exception e)
 			{
-				signature = "";
+				signature = /*--------------------------*/ "" /*--------------------------*/;
 			}
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
- 			StringBuilder stringBuilder = new StringBuilder("OAuth ");
+ 			String header = buildHeader(nonce, timestamp, signature);
 
-			stringBuilder.append("oauth_consumer_key=\"").append(quoteEscape(consumerKey)).append("\",")
-			             .append("oauth_nonce=\"").append(quoteEscape(nonce)).append("\",")
-			             .append("oauth_signature=\"").append(quoteEscape(signature)).append("\",")
-			             .append("oauth_signature_method=\"").append(quoteEscape(OAUTH_SIGNATURE_METHOD)).append("\",")
-			             .append("oauth_timestamp=\"").append(quoteEscape(timestamp)).append("\",")
-			             .append("oauth_version=\"").append(quoteEscape(OAUTH_VERSION)).append("\"")
-			;
+			/*--------------------------------------------------------------------------------------------------------*/
 
-			requestTemplate.header("Authorization", stringBuilder.toString());
+			requestTemplate.header("Authorization", header);
 
 			/*--------------------------------------------------------------------------------------------------------*/
 		};
@@ -79,9 +78,26 @@ public class WooCommerceClientsConfiguration
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public String buildSignature(String method, String urlSuffix, String nonce, String timestamp) throws Exception
+	public String buildHeader(String nonce, String timestamp, String signature)
 	{
-		String string = method.toUpperCase() + "&" + percentEncode(baseUrl + urlSuffix) + "&" + percentEncode(
+		StringBuilder stringBuilder = new StringBuilder("OAuth ");
+
+		stringBuilder.append("oauth_consumer_key=\"").append(quoteEscape(consumerKey)).append("\",")
+		             .append("oauth_nonce=\"").append(quoteEscape(nonce)).append("\",")
+		             .append("oauth_signature=\"").append(quoteEscape(signature)).append("\",")
+		             .append("oauth_signature_method=\"").append(quoteEscape(OAUTH_SIGNATURE_METHOD)).append("\",")
+		             .append("oauth_timestamp=\"").append(quoteEscape(timestamp)).append("\",")
+		             .append("oauth_version=\"").append(quoteEscape(OAUTH_VERSION)).append("\"")
+		;
+
+		return stringBuilder.toString();
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	public String buildSignature(String method, String url, String nonce, String timestamp) throws Exception
+	{
+		String string = method.toUpperCase() + "&" + percentEncode(url) + "&" + percentEncode(
 			/*---*/ percentEncode("oauth_consumer_key") + "=" + percentEncode(consumerKey)
 			+ "&" + percentEncode("oauth_nonce") + "=" + percentEncode(nonce)
 			+ "&" + percentEncode("oauth_signature_method") + "=" + percentEncode(OAUTH_SIGNATURE_METHOD)
@@ -131,6 +147,13 @@ public class WooCommerceClientsConfiguration
 		}
 
 		return stringBuilder.toString();
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	private String generateTimestamp()
+	{
+		return Long.toString(System.currentTimeMillis() / 1000L);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
