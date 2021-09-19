@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import xyz.morlotti.woocommerce.client.service.Products;
 
-//@SpringBootApplication
-//@EnableFeignClients
-public class Main implements CommandLineRunner
+@SpringBootApplication
+@EnableFeignClients
+public class Test implements CommandLineRunner
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
@@ -20,7 +20,7 @@ public class Main implements CommandLineRunner
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(Main.class, args);
+		SpringApplication.run(Test.class, args);
 
 		System.exit(0);
 	}
@@ -28,9 +28,16 @@ public class Main implements CommandLineRunner
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void run(String... args) throws Exception
+	public void run(String... args)
 	{
-		System.out.println(products.getProducts());
+		try
+		{
+			System.out.println(products.getProducts());
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
