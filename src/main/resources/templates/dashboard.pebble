@@ -1,5 +1,18 @@
-{% extends "base" %}
+<!DOCTYPE html>
 
-{% block content %}
-Hello
-{% endblock %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Le M.U.R. Grenoble{% endblock %}</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+Nombre de produits :   {{ product.listProducts }}
+
+3 derniers produits ajoutés :
+
+    </head>
+    <body>
+
+    </body>
+</html>

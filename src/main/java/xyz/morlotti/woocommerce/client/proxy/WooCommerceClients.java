@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
+import xyz.morlotti.woocommerce.client.bean.Product;
 
 @FeignClient(value = "woocommerce", url = "${woocommerce.base_url}", configuration = WooCommerceClientsConfiguration.class)
 public interface WooCommerceClients
@@ -14,5 +15,5 @@ public interface WooCommerceClients
 	List<Object> getOrders();
 
 	@RequestMapping(method = RequestMethod.GET, value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
-	List<Object> getProducts();
+	List<Product> getProducts();
 }
