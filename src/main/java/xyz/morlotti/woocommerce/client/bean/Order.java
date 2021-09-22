@@ -2,8 +2,8 @@ package xyz.morlotti.woocommerce.client.bean;
 
 import lombok.*;
 
-import java.lang.reflect.Array;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Setter
@@ -21,13 +21,21 @@ public class Order
 
 	private String order_key;
 
+	private String created_via;
+
 	private String version;
 
 	private String status;
 
+	private String currency;
+
 	private Date date_created;
 
+	private Date date_created_gmt;
+
 	private Date date_modified;
+
+	private Date date_modified_gmt;
 
 	private String discount_total;
 
@@ -37,9 +45,13 @@ public class Order
 
 	private String shipping_tax;
 
+	private String cart_tax;
+
 	private String total;
 
 	private String total_tax;
+
+	private Boolean prices_include_tax;
 
 	private Integer customer_id;
 
@@ -47,70 +59,46 @@ public class Order
 
 	private String custumer_user_agent;
 
-	private Object billing;
+	private String customer_note;
 
-	private Object shipping_address;
+	private OrderBillingProperties billing;
+
+	private OrderShippingProperties shipping;
+
+	private String payment_method;
+
+	private String payment_method_title;
 
 	private String transaction_id;
 
 	private Date date_paid;
 
+	private Date date_paid_gmt;
+
 	private Date date_completed;
 
-	private Array meta_data;
+	private Date date_completed_gmt;
 
-	private Array line_items;
+	private String cart_hash;
 
-	private Array tax_lines;
+	private List<OrderMetadataProperties> meta_data;
 
-	private Array shipping_lines;
+	private List<OrderLineItemsProperties> line_items;
 
-	private Array refunds;
+	private List<OrderTaxLinesProperties> tax_lines;
+
+	private List<OrderShippingLinesProperties> shipping_lines;
+
+	private List<OrderCouponLinesProperties> coupons_lines;
+
+	private List<OrderFeeLinesProperties> fee_lines;
+
+	private List<OrderRefundsProperties> refunds;
 
 	private boolean set_paid;
 
-	/*-------------------------------------------Order - Billing properties-------------------------------------------*/
-
-	private String first_name;
-
-	private String last_name;
-
-	private String company_name;
-
-	private String address_1;
-
-	private String address_2;
-
-	private String city;
-
-	private String country;
-
-	private String postcode;
-
-	private String email;
-
-	private String phone;
-
 	/*-------------------------------------------Order - Shipping properties------------------------------------------*/
 
-	private String shipping_first_name;
 
-	private String shipping_last_name;
-
-	private String shipping_company_name;
-
-	private String shipping_address_1;
-
-	private String shipping_address_2;
-
-	private String shipping_city;
-
-	private String shipping_country;
-
-	private String shipping_postcode;
-
-	private String shipping_email;
-
-	private String shipping_phone;
 
 }
