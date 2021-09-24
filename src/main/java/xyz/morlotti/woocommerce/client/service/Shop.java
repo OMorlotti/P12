@@ -1,10 +1,10 @@
 package xyz.morlotti.woocommerce.client.service;
 
-import xyz.morlotti.woocommerce.client.bean.Product;
-
 import java.util.List;
 
-public interface Products
+import xyz.morlotti.woocommerce.client.bean.Product;
+
+public interface Shop
 {
 	public List<Object> getOrders();
 

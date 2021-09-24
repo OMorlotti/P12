@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-public class WooCommerceClientsConfiguration
+public class WooCommerceClientConfiguration
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 

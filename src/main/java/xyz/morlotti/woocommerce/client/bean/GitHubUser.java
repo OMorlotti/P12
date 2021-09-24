@@ -8,11 +8,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderRefundsProperties
+public class GitHubUser
 {
 	private Integer id;
 
-	private  String reason;
+	private String login;
 
-	private String total;
+	private String name;
+
+	private String email;
+
+	private String html_url;
+
+	private String avatar_url;
 }

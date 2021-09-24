@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.woocommerce.client.bean.Product;
-import xyz.morlotti.woocommerce.client.proxy.WooCommerceClients;
+import xyz.morlotti.woocommerce.client.proxy.WooCommerceClient;
 
 @Service
 public class DashboardServiceImpl implements DashboardService
 {
 	@Autowired
-	private WooCommerceClients wooCommerceClients;
+	private WooCommerceClient wooCommerceClients;
 
 	public List<Product> getProducts()
 	{

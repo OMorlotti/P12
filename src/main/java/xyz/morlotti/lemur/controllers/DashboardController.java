@@ -1,9 +1,10 @@
 package xyz.morlotti.lemur.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import xyz.morlotti.lemur.service.DashboardService;
 import xyz.morlotti.woocommerce.client.bean.Product;
 

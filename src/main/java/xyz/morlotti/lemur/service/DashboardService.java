@@ -1,8 +1,8 @@
 package xyz.morlotti.lemur.service;
 
-import xyz.morlotti.woocommerce.client.bean.Product;
-
 import java.util.List;
+
+import xyz.morlotti.woocommerce.client.bean.Product;
 
 public interface DashboardService
 {

@@ -2,17 +2,19 @@ package xyz.morlotti.woocommerce.client.bean;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderRefundsProperties
+public class GitHubTree
 {
-	private Integer id;
+	private String sha;
 
-	private  String reason;
+	private String url;
 
-	private String total;
+	private List<GitHubTreeItem> tree;
 }
