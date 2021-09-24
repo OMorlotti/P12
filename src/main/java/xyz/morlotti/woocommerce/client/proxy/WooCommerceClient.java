@@ -12,9 +12,15 @@ import xyz.morlotti.woocommerce.client.bean.Product;
 @FeignClient(value = "woocommerce", url = "${woocommerce.base_url}", configuration = WooCommerceClientConfiguration.class)
 public interface WooCommerceClient
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@RequestMapping(method = RequestMethod.GET, value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 	List<Object> getOrders();
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@RequestMapping(method = RequestMethod.GET, value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
 	List<Product> getProducts();
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

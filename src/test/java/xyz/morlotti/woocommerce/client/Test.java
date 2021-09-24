@@ -36,9 +36,9 @@ public class Test implements CommandLineRunner
 	{
 		try
 		{
-			System.out.println(shop.getProducts());
+			//System.out.println(shop.getProducts());
 
-			System.out.println(shop.getOrders());
+			//System.out.println(shop.getOrders());
 
 			System.out.println(gitHub.me());
 

@@ -11,16 +11,24 @@ import xyz.morlotti.woocommerce.client.proxy.WooCommerceClient;
 @Service
 public class ShopImpl implements Shop
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	private WooCommerceClient wooCommerceClients;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	public List<Object> getOrders()
 	{
 		return wooCommerceClients.getOrders();
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	public List<Product> getProducts()
 	{
 		return wooCommerceClients.getProducts();
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

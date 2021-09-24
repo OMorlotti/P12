@@ -26,7 +26,9 @@ public class GitHubClientConfiguration
 
 			String data = login + ":" + token;
 
-			requestTemplate.header("Authorization", "Basic " + Base64.getEncoder().encodeToString(data.getBytes(StandardCharsets.UTF_8)));
+			String encoded = Base64.getEncoder().encodeToString(data.getBytes(StandardCharsets.UTF_8));
+
+			requestTemplate.header("Authorization", "Basic " + encoded);
 		};
 	};
 
