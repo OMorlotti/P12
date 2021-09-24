@@ -43,6 +43,8 @@ public class Test implements CommandLineRunner
 			System.out.println(gitHub.me());
 
 			System.out.println(gitHub.tree("master"));
+
+			System.out.println(gitHub.versions("/pages/02.articles/theorie-lagrangienne-des-champs/item.fr.md"));
 		}
 		catch(Exception e)
 		{

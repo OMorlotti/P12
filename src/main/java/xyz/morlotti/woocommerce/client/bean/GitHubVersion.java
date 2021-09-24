@@ -10,5 +10,5 @@ import lombok.*;
 @ToString
 public class GitHubVersion
 {
-
+	private String sha;
 }
