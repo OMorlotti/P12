@@ -6,25 +6,25 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import xyz.morlotti.woocommerce.client.bean.Product;
-import xyz.morlotti.woocommerce.client.proxy.WooCommerceClient;
+import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
+import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 
 @Service
 public class DashboardServiceImpl implements DashboardService
 {
 	@Autowired
-	private WooCommerceClient wooCommerceClients;
+	private WooCommerce wooCommerce;
 
 	public List<Product> getProducts()
 	{
-		return wooCommerceClients.getProducts();
+		return wooCommerce.getProducts();
 	}
 
 	public List<Product> getLastThreeProducts()
 	{
 		List<Product> result = new ArrayList<>();
 
-		List<Product> list = wooCommerceClients.getProducts();
+		List<Product> list = wooCommerce.getProducts();
 
 		for(int i = 0; i < Math.min(list.size(), 3); i++)
 		{

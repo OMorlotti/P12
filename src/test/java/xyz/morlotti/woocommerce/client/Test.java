@@ -3,19 +3,17 @@ package xyz.morlotti.woocommerce.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import xyz.morlotti.woocommerce.client.service.GitHub;
-import xyz.morlotti.woocommerce.client.service.Shop;
+import xyz.morlotti.lemur.clients.github.service.GitHub;
+import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 
-@SpringBootApplication
-@EnableFeignClients
+//@SpringBootApplication
+//@EnableFeignClients
 public class Test implements CommandLineRunner
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
-	public Shop shop;
+	public WooCommerce shop;
 
 	@Autowired
 	public GitHub gitHub;
@@ -36,13 +34,13 @@ public class Test implements CommandLineRunner
 	{
 		try
 		{
-			//System.out.println(shop.getProducts());
+			System.out.println(shop.getProducts());
 
-			//System.out.println(shop.getOrders());
+			System.out.println(shop.getOrders());
 
 			System.out.println(gitHub.me());
 
-			System.out.println(gitHub.tree("master"));
+			System.out.println(gitHub.fileTree("master"));
 
 			System.out.println(gitHub.versions("/pages/02.articles/theorie-lagrangienne-des-champs/item.fr.md"));
 		}

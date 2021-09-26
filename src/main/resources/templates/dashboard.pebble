@@ -1,18 +1,23 @@
-<!DOCTYPE html>
+{% extends "base" %}
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>{% block title %}Le M.U.R. Grenoble{% endblock %}</title>
+{# ------------------------------------------------------------------------------------------------------------------ #}
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+{% block title %}Dashboard{% endblock %}
 
-Nombre de produits :   {{ product.listProducts }}
+{# ------------------------------------------------------------------------------------------------------------------ #}
+
+{% block content %}
+
+Nombre de produits :
 
 3 derniers produits ajoutés :
 
-    </head>
-    <body>
+{% for product in lastThreeProducts %}
 
-    </body>
-</html>
+  {{ product.name|escape }}
+
+{% endfor %}
+
+{% endblock %}
+
+{# ------------------------------------------------------------------------------------------------------------------ #}

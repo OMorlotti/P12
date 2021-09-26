@@ -1,28 +1,24 @@
 package xyz.morlotti.lemur.controllers;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.service.DashboardService;
-import xyz.morlotti.woocommerce.client.bean.Product;
 
-@RestController
+@Controller
 public class DashboardController
 {
 	@Autowired
 	DashboardService dashboardService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home()
+	public String home(Model model)
 	{
-		return "dashboard";
-	}
+		model.addAttribute("lastThreeProducts", dashboardService.getLastThreeProducts());
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public Iterable<Product> listProducts()
-	{
-		return listProducts();
+		return "dashboard";
 	}
 }
