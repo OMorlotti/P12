@@ -43,7 +43,9 @@ public class Test implements CommandLineRunner
 
 			//System.out.println(gitHub.me());
 
-			System.out.println(documentsService.getTree("master"));
+			System.out.println(documentsService.getTree("master").get("/"));
+
+			System.out.println(documentsService.getTree("master").get("/pages/02.articles/theorie-lagrangienne-des-champs/item.fr.md"));
 
 			//System.out.println(gitHub.versions("/pages/02.articles/theorie-lagrangienne-des-champs/item.fr.md"));
 		}

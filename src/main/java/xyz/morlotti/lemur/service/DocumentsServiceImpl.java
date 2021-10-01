@@ -1,29 +1,34 @@
 package xyz.morlotti.lemur.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import xyz.morlotti.lemur.service.bean.TreeItem;
+import xyz.morlotti.lemur.clients.github.service.GitHub;
 import xyz.morlotti.lemur.clients.github.bean.GitHubTree;
 import xyz.morlotti.lemur.clients.github.bean.GitHubTreeItem;
-import xyz.morlotti.lemur.clients.github.service.GitHub;
-import xyz.morlotti.lemur.service.bean.TreeItem;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class DocumentsServiceImpl implements DocumentsService
 {
-	@Autowired
-	public GitHub gitHub;
+	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public Map<String, TreeItem> dict = new HashMap<>();
+	@Autowired
+	private GitHub gitHub;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public TreeItem getTree(String commitId)
+	public Map<String, TreeItem> getTree(String commitId)
 	{
 		int currentId = 1;
+
+		Map<String, TreeItem> dict = new HashMap<>();
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -67,7 +72,7 @@ public class DocumentsServiceImpl implements DocumentsService
 
 					if(newFolder == null)
 					{
-						String currentPath = String.join("/", currentPathList);
+						String currentPath = "/" + String.join("/", currentPathList);
 
 						newFolder = new TreeItem(
 							currentId,
@@ -127,7 +132,7 @@ public class DocumentsServiceImpl implements DocumentsService
 
 					if(newFolder == null)
 					{
-						String currentPath = String.join("/", currentPathList);
+						String currentPath = "/" + String.join("/", currentPathList);
 
 						TreeItem newFile = new TreeItem(
 							currentId,
@@ -158,7 +163,36 @@ public class DocumentsServiceImpl implements DocumentsService
 		}
 
 		/*------------------------------------------------------------------------------------------------------------*/
+		/* UPDATE FOLDER SIZES                                                                                        */
+		/*------------------------------------------------------------------------------------------------------------*/
 
-		return rootFolder;
+		updateSizes(rootFolder);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		return dict;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	private long updateSizes(TreeItem item)
+	{
+		long result = 0;
+
+		for(TreeItem folder: item.getFolders().values())
+		{
+			result += updateSizes(folder);
+		}
+
+		for(TreeItem file: item.getFiles().values())
+		{
+			result += file.getSize();
+		}
+
+		item.setSize(result);
+
+		return result;
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }
