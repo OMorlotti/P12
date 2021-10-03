@@ -11,6 +11,7 @@
     <p>Nombre de produits:</p>
 
     <p>3 derniers produits ajoutés :</p>
+
     <ul>
         {% for product in lastThreeProducts %}
         <li>{{ product.name|escape }}</li>
