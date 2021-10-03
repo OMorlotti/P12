@@ -3,6 +3,7 @@
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
 {% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/b-2.0.1/b-print-2.0.1/r-2.2.9/sl-1.3.3/datatables.css" />
 {% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------ #}
@@ -13,13 +14,98 @@
 
 {% block content %}
 <div class="p-2">
-TODO
+
+    <div class="mb-2">
+        <button class="btn btn-sm btn-outline-secondary" id="C8355504_B5A7_166C_C130_117F8FE0AB90">
+            <i class="bi bi-plus text-primary"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="EB3E8CD1_D458_8303_0B0B_F56558563E30">
+            <i class="bi bi-pencil text-danger"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="D49B8F37_A8AD_6223_4E2E_59F1D681980D">
+            <i class="bi bi-trash text-danger"></i>
+        </button>
+    </div>
+
+    <table class="table table-sm w-100" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+    </table>
+
 </div>
 {% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
 {% block js %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/b-2.0.1/b-print-2.0.1/r-2.2.9/sl-1.3.3/datatables.js"></script>
+
+<script type="text/javascript">
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    const table = $('#D522155B_5EAF_1B0E_7333_74EEF1FAE766').DataTable({
+        'ajax': '/api/artists',
+        'columns': [
+            { 'data': 'id' },
+            { 'data': 'first_name' },
+            { 'data': 'last_name' },
+            { 'data': 'pseudo' },
+            { 'data': 'email' },
+            { 'data': 'description' },
+        ]
+    });
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    $('#D522155B_5EAF_1B0E_7333_74EEF1FAE766 tbody').on('click', 'tr', function() {
+
+        if($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    $('#C8355504_B5A7_166C_C130_117F8FE0AB90').click(() => {
+
+        alert('New');
+    });
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    $('#EB3E8CD1_D458_8303_0B0B_F56558563E30').click(() => {
+
+        const row = table.row('.selected');
+
+        alert(JSON.stringify(row));
+    });
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    $('#D49B8F37_A8AD_6223_4E2E_59F1D681980D').click(() => {
+
+        if(confirm('Confirm?'))
+        {
+            const row = table.row('.selected');
+
+            row.remove().draw(false);
+        }
+    });
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+</script>
 {% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------ #}
