@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.morlotti.lemur.service.bean.TreeItem;
 import xyz.morlotti.lemur.service.DocumentsService;
 
+import java.util.Map;
+
 @Controller
 public class DocumentsController
 {
@@ -21,24 +23,42 @@ public class DocumentsController
 	@RequestMapping(value = "/documents", method = RequestMethod.GET)
 	public String documents(@RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
 	{
-		TreeItem treeItem = documentsService.getTree("master").get(path);
+		Map<String, TreeItem> map = documentsService.getTree("master");
 
-		System.out.println(treeItem);
+		if(map.containsKey(path))
+		{
+			TreeItem treeItem = map.get(path);
 
-		model.addAttribute("treeItem", treeItem);
+			model.addAttribute("treeItem", treeItem);
 
-		return "documents";
+			return "documents";
+		}
+		else
+		{
+			model.addAttribute("path", path);
+
+			return "notFound";
+		}
 	}
 
 	@RequestMapping(value = "/documents/{commitId}", method = RequestMethod.GET)
 	public String documents(@PathVariable("commitId") String commitId, @RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
 	{
-		TreeItem treeItem = documentsService.getTree(commitId).get(path);
+		Map<String, TreeItem> map = documentsService.getTree(commitId);
 
-		System.out.println(treeItem);
+		if(map.containsKey(path))
+		{
+			TreeItem treeItem = map.get(path);
 
-		model.addAttribute("treeItem", treeItem);
+			model.addAttribute("treeItem", treeItem);
 
-		return "documents";
+			return "documents";
+		}
+		else
+		{
+			model.addAttribute("path", path);
+
+			return "notFound";
+		}
 	}
 }

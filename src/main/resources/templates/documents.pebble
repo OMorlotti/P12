@@ -1,7 +1,5 @@
 {% extends "base" %}
 
-{% macro _(value) %}{{ value }}{% endmacro %}
-
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
 {% block css %}
@@ -48,16 +46,17 @@
 
 						<nav>
 							<ol class="breadcrumb" style="padding: .25rem .75rem;">
+							    <li class="breadcrumb-item">
+							        <a href="/documents?path=/"><i class="bi bi-house"></i></a>
+							    </li>
 							    {%- set currentPath = "" -%}
 							    {% for name in treeItem.path|split('/') %}
+							    {%   if name is not empty %}
 							    <li class="breadcrumb-item">
-							        {% if name is empty %}
-							            <a href="/documents?path=/"><i class="bi bi-house"></i></a>
-							        {% else %}
-                                        {%- set currentPath = currentPath + "/" + name -%}
-							            <a href="/documents?path={{ currentPath|escape }}">{{ name|escape }}</a>
-                                    {% endif %}
+                                    {%- set currentPath = currentPath + "/" + name -%}
+							        <a href="/documents?path={{ currentPath|escape }}">{{ name|escape }}</a>
 							    </li>
+    					        {%   endif %}
 							    {% endfor %}
 								<div class="dropleft ml-auto">
 									<button class="badge badge-pill badge-light border" type="button" data-toggle="dropdown">
@@ -79,15 +78,15 @@
 										<!-- *********************************************************************** -->
 
 										<a class="dropdown-item" href="#" id="CF1E8245_E843_69F7_3C48_2EA75D58EC6C">
-											<i class="bi bi-file-word"></i> {{ _('Document') }}
+											<i class="bi bi-file-earmark-word"></i> {{ _('Document') }}
 										</a>
 
 										<a class="dropdown-item" href="#" id="A0E3EA5F_8240_624A_F18A_77D2E7844728">
-											<i class="bi bi-file-excel"></i> {{ _('Spreadsheet') }}
+											<i class="bi bi-file-earmark-excel"></i> {{ _('Spreadsheet') }}
 										</a>
 
 										<a class="dropdown-item" href="#" id="F9B95668_AEB0_7AEC_615B_F8D78A5F04C8">
-											<i class="bi bi-file-ppt"></i> {{ _('Presentation') }}
+											<i class="bi bi-file-earmark-ppt"></i> {{ _('Presentation') }}
 										</a>
 
 										<!-- *********************************************************************** -->

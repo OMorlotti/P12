@@ -3,7 +3,9 @@ package xyz.morlotti.lemur;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Optional;
 
+import com.mitchellbosecke.pebble.error.PebbleException;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,32 @@ import com.mitchellbosecke.pebble.template.EvaluationContext;
 @SpringBootApplication
 public class Application
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	private static class FileExtFilter implements Filter
+	{
+		@Override
+		public List<String> getArgumentNames()
+		{
+			return null;
+		}
+
+		@Override
+		public Object apply(Object input, Map<String, Object> args, PebbleTemplate self, EvaluationContext context, int lineNumber)
+		{
+			if(input instanceof String)
+			{
+				String fname = (String) input;
+
+				int index = fname.lastIndexOf(".");
+
+				if(index > 0) return fname.substring(index).toLowerCase();
+			}
+
+			return "";
+		}
+	}
+
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	private static class FileSizeFilter implements Filter
@@ -76,7 +104,7 @@ public class Application
 
 			int scale = (int) Math.floor(Math.log(size) / Math.log(1024.0));
 
-			return String.format("%.2f %s", size / Math.pow(1024.0, scale), SCALES[scale]);
+			return String.format("%.1f %s", size / Math.pow(1024.0, scale), SCALES[scale]);
 
 			/*--------------------------------------------------------------------------------------------------------*/
 		}
@@ -94,6 +122,7 @@ public class Application
 
 			/* anonymous constructor */
 			{
+				filters.put("fileExt", new FileExtFilter());
 				filters.put("fileSize", new FileSizeFilter());
 			}
 

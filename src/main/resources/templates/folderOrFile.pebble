@@ -1,7 +1,18 @@
 <tr>
     <td style="width: 56px;">
 {% if type == 'file' %}
+{%-  set ext = item.name|fileExt -%}
+{%   if     ext == '.docx' %}
+        <i class="bi bi-file-earmark-word"></i>
+{%   elseif ext == '.xlsx' %}
+        <i class="bi bi-file-earmark-excel"></i>
+{%   elseif ext == '.pptx' %}
+        <i class="bi bi-file-earmark-ppt"></i>
+{%   elseif (ext == '.jpg') or (ext == '.png') or (ext == '.gif') or (ext == '.svg') %}
+        <i class="bi bi-file-earmark-image"></i>
+{%   else %}
         <i class="bi bi-file-earmark"></i>
+{%   endif %}
 {% else %}
         <i class="bi bi-folder"></i>
 {% endif %}
