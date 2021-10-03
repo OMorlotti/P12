@@ -7,10 +7,12 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+
 {% block css %}{% endblock %}
 
     </head>
-    <body>
+    <body class="bg-dark">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-1 py-0">
             <a class="navbar-brand" href="{{ href('/') }}">
@@ -25,6 +27,9 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ href('/search') }}">🔍 Rechercher une oeuvre</a
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ href('/documents') }}">Base de documents</a
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -62,7 +67,7 @@
 
         </div>
 
-        <footer class="container rounded-bottom shadow-lg p-0" style="background-color: rgba(0, 123, 255, 0.25)">
+        <footer class="container rounded-bottom shadow-lg bg-light p-0">
 
             <div class="row">
                 <div class="col-md-4 text-center">

@@ -1,0 +1,13 @@
+<tr>
+    <td style="width: 56px;">
+{% if type == 'file' %}
+        <i class="bi bi-file-earmark"></i>
+{% else %}
+        <i class="bi bi-folder"></i>
+{% endif %}
+    </td>
+    <td><a href="/documents?path={{ item.path|escape }}">{{ item.name|escape }}</a></td>
+    <td style="width: 48px;"></td>
+    <td style="width: 48px;"></td>
+    <td class="d-none d-md-table-cell" style="width: 100px;">{{ item.size|fileSize }}</td>
+</tr>

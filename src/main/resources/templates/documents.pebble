@@ -30,7 +30,7 @@
 					<div class="nav nav-tabs card-header-tabs" id="A98BCFA6_52C5_482A_658C_27A1DF8BCC2C" role="tablist">
 
 						<a class="nav-item nav-link active mt-1" href="#E62FAC1A_051E_0C08_5E25_4687A9571D39" data-toggle="tab" role="tab">
-							<i class="fas fa-hdd"></i> Drive
+							<i class="bi bi-hdd"></i> Drive
 						</a>
 
 					</div>
@@ -47,20 +47,31 @@
 					<div class="tab-pane show active" id="E62FAC1A_051E_0C08_5E25_4687A9571D39" role="tabpanel">
 
 						<nav>
-							<ol class="breadcrumb" style="padding: .25rem .75rem;" id="AA993D84_D37A_C89A_A979_0C0706CA2E38">
+							<ol class="breadcrumb" style="padding: .25rem .75rem;">
+							    {%- set currentPath = "" -%}
+							    {% for name in treeItem.path|split('/') %}
+							    <li class="breadcrumb-item">
+							        {% if name is empty %}
+							            <a href="/documents?path=/"><i class="bi bi-house"></i></a>
+							        {% else %}
+                                        {%- set currentPath = currentPath + "/" + name -%}
+							            <a href="/documents?path={{ currentPath|escape }}">{{ name|escape }}</a>
+                                    {% endif %}
+							    </li>
+							    {% endfor %}
 								<div class="dropleft ml-auto">
 									<button class="badge badge-pill badge-light border" type="button" data-toggle="dropdown">
-										<i class="fas fa-plus"></i> {{ _('Add') }}
+										<i class="bi bi-plus"></i> {{ _('Add') }}
 									</button>
 									<div class="dropdown-menu">
 										<!-- *********************************************************************** -->
 
 										<a class="dropdown-item" href="#" id="ABF4E6BC_CA73_C973_83B9_5EFFAD0D071E">
-											<i class="fas fa-folder"></i> {{ _('Folder') }}
+											<i class="bi bi-folder"></i> {{ _('Folder') }}
 										</a>
 
 										<a class="dropdown-item" href="#" id="C08836A8_C976_D3A2_9D62_3F53237A3872">
-											<i class="fas fa-file-upload"></i> {{ _('Upload') }}
+											<i class="bi bi-file-earmark-arrow-up"></i> {{ _('Upload') }}
 										</a>
 
 										<!-- *********************************************************************** -->
@@ -68,15 +79,15 @@
 										<!-- *********************************************************************** -->
 
 										<a class="dropdown-item" href="#" id="CF1E8245_E843_69F7_3C48_2EA75D58EC6C">
-											<i class="fas fa-file-word"></i> {{ _('Document') }}
+											<i class="bi bi-file-word"></i> {{ _('Document') }}
 										</a>
 
 										<a class="dropdown-item" href="#" id="A0E3EA5F_8240_624A_F18A_77D2E7844728">
-											<i class="fas fa-file-excel"></i> {{ _('Spreadsheet') }}
+											<i class="bi bi-file-excel"></i> {{ _('Spreadsheet') }}
 										</a>
 
 										<a class="dropdown-item" href="#" id="F9B95668_AEB0_7AEC_615B_F8D78A5F04C8">
-											<i class="fas fa-file-powerpoint"></i> {{ _('Presentation') }}
+											<i class="bi bi-file-ppt"></i> {{ _('Presentation') }}
 										</a>
 
 										<!-- *********************************************************************** -->
@@ -87,14 +98,17 @@
 
 						<input class="d-none" type="file" id="F38D4A92_B041_13E1_2591_6FCBA13B1B88" />
 
-						<!--
-						<label class="mb-2" for="F38D4A92_B041_13E1_2591_6FCBA13B1B88" data-action="file-upload">
-							{{ _('Drop a file') }}
-						</label>
--->
 						<div class="table-responsive">
 							<table class="table table-sm table-hover">
-								<tbody id="CCDC3FB6_FA67_7711_469A_598379AD784B"></tbody>
+								<tbody>
+                                    {% for entry in treeItem.folders %}
+									    {% include "folderOrFile" with {"type": "folder", "item": entry.value} %}
+									{% endfor%}
+
+                                    {% for entry in treeItem.files %}
+									    {% include "folderOrFile" with {"type": "file", "item": entry.value} %}
+									{% endfor%}
+								</tbody>
 							</table>
 						</div>
 

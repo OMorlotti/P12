@@ -9,8 +9,8 @@ import xyz.morlotti.lemur.clients.github.service.GitHub;
 import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 import xyz.morlotti.lemur.service.DocumentsService;
 
-@SpringBootApplication
-@EnableFeignClients
+//@SpringBootApplication
+//@EnableFeignClients
 public class Test implements CommandLineRunner
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
