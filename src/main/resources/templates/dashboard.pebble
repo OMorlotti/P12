@@ -8,15 +8,14 @@
 
 {% block content %}
 
-Nombre de produits :
+<p>Nombre de produits:</p>
 
-3 derniers produits ajoutés :
-
-{% for product in lastThreeProducts %}
-
-  {{ product.name|escape }}
-
-{% endfor %}
+<p>3 derniers produits ajoutés :</p>
+<ul>
+    {% for product in lastThreeProducts %}
+    <li>{{ product.name|escape }}</li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
 

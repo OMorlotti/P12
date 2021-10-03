@@ -15,7 +15,7 @@
     </head>
     <body class="bg-dark">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-1 py-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-1 py-0 mb-2">
             <a class="navbar-brand" href="{{ href('/') }}">
                 Le M.U.R. Grenoble
             </a>
@@ -59,18 +59,9 @@
             </div>
         </nav>
 
-        <div class="container-lg shadow-lg bg-white p-2">
+        <div class="container rounded-top shadow-lg bg-white p-0">
 
-            {% if message %}
-            <div class="alert alert-{{ messageType | default("success") }}">
-                {{ message }}
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">&times;</span>
-				</button>
-            </div>
-            {% endif %}
-
-{% block content %}{% endblock %}
+            {% block content %}{% endblock %}
 
         </div>
 
