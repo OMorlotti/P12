@@ -15,7 +15,7 @@
 {% block content %}
 <div class="p-2">
 
-    <div class="mb-2">
+    <div class="text-right mb-2">
         <button class="btn btn-sm btn-outline-secondary" id="C8355504_B5A7_166C_C130_117F8FE0AB90">
             <i class="bi bi-plus text-primary"></i>
         </button>
