@@ -1,10 +1,12 @@
 package xyz.morlotti.lemur.model.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDate;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Setter
@@ -22,9 +24,6 @@ public class ArtistTag
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
-
-	@Column(name = "name", nullable = false, length = 128)
-	private String name;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)

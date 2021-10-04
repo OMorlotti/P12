@@ -1,12 +1,14 @@
 package xyz.morlotti.lemur.model.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
+import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.time.LocalDate;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Setter
@@ -27,10 +29,10 @@ public class Artist
 	private Integer id;
 
 	@Column(name = "first_name", nullable = true, length = 256)
-	private String first_name;
+	private String firstName;
 
 	@Column(name = "last_name", nullable = true, length = 256)
-	private String last_name;
+	private String lastName;
 
 	@Column(name = "pseudo", nullable = true, length = 128)
 	private String pseudo;
@@ -40,10 +42,10 @@ public class Artist
 	private String email;
 
 	@Column(name = "date_of_birth", nullable = true)
-	private Date date_of_birth;
+	private Date dateOfBirth;
 
 	@Column(name = "date_of_death", nullable = true)
-	private Date date_of_death;
+	private Date dateOfDeath;
 
 	@Column(name = "description", nullable = true, length = 4096)
 	private String description;

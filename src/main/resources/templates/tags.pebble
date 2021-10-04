@@ -8,7 +8,7 @@
 
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
-{% block title %}Artistes{% endblock %}
+{% block title %}Tags{% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------ #}
 
@@ -31,12 +31,8 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Prénom</th>
                 <th>Nom</th>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Description</th>
-            </tr>
+                </tr>
         </thead>
     </table>
 
@@ -52,14 +48,10 @@
     /*----------------------------------------------------------------------------------------------------------------*/
 
     const table = $('#D522155B_5EAF_1B0E_7333_74EEF1FAE766').DataTable({
-        'ajax': '/api/artists',
+        'ajax': '/api/tags',
         'columns': [
             { 'data': 'id' },
-            { 'data': 'firstName' },
-            { 'data': 'lastName' },
-            { 'data': 'pseudo' },
-            { 'data': 'email' },
-            { 'data': 'description' },
+            { 'data': 'name' },
         ]
     });
 

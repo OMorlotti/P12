@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Setter
 @Getter
@@ -23,4 +27,9 @@ public class Tag
 
 	@Column(name = "name", nullable = false, length = 128)
 	private String name;
+
+	@JsonIgnore
+	@org.hibernate.annotations.CreationTimestamp
+	@Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDate created;
 }
