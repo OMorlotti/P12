@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 @Data
 @Setter
@@ -28,13 +29,25 @@ public class Artwork
 	@Column(name = "wc_id", nullable = true)
 	private Integer wcId;
 
-	@Column(name = "name", nullable = true, length = 256)
+	@Column(name = "name", nullable = false, length = 256)
 	private String name;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "artistFK", nullable = false)
+	@JoinColumn(name = "artistFK", nullable = true)
 	private Artist artist;
+
+	public String getArtistPseudo()
+	{
+		if(artist != null)
+		{
+			return artist.getPseudo();
+		}
+		else
+		{
+			return "N/A";
+		}
+	}
 
 	@Column(name = "description", nullable = true, length = 4096)
 	private String description;
