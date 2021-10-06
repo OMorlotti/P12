@@ -64,6 +64,15 @@
 
         <div class="container rounded-top shadow-lg bg-white p-0">
 
+            {% if errorMessage %}
+            <div class="alert alert-danger">
+                {{ errorMessage|escape }}
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            {% endif %}
+
             {% block content %}{% endblock %}
 
         </div>

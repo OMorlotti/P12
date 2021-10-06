@@ -1,6 +1,8 @@
 package xyz.morlotti.lemur.controller_api;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,17 @@ public class TagsControllerAPI
 	}
 
 	@RequestMapping(value = "/api/tags/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String deleteTags(@PathVariable("id") int id)
+	public ResponseEntity<String> deleteTags(@PathVariable("id") int id)
 	{
-		System.out.println(id);
+		try
+		{
+			tagsService.deleteTag(id);
+		}
+		catch(RuntimeException e)
+		{
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
 
-		return "{}";
+		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
 }

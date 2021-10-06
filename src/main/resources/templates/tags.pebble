@@ -23,13 +23,13 @@
             </div>
             <div class="modal-body">
 
-                <form action="/tags" method="POST" id="tagForm">
+                <form action="/tags" method="POST" id="tagForm" modelAttribute="tag">
 
-                    <input type="hidden" name="formName" id="formId" />
+                    <input type="hidden" value="-1" name="id" id="tagId" />
 
                     <div class="form-group">
                         <label for="formName">Nom</label>
-                        <input class="form-control form-control-sm" type="text" name="formName" id="formName" required="required" />
+                        <input class="form-control form-control-sm" type="text" name="name" id="tagName" required="required" />
                     </div>
 
                 </form>
@@ -106,8 +106,8 @@
 
         $('#tagForm')[0].reset();
 
-        $('#formId').val('');
-        $('#formName').val('');
+        $('#tagId').val('-1');
+        $('#tagName').val('');
 
         $('#addUpdateModal').modal('show');
     });
@@ -124,8 +124,8 @@
         {
             $('#tagForm')[0].reset();
 
-            $('#formId').val(data.id);
-            $('#formName').val(data.name);
+            $('#tagId').val(data.id);
+            $('#tagName').val(data.name);
 
             $('#addUpdateModal').modal('show');
         }
