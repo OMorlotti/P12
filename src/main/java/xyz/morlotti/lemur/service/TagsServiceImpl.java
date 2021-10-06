@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import xyz.morlotti.lemur.model.bean.Tag;
-import xyz.morlotti.lemur.repositories.TagRepository;
+import xyz.morlotti.lemur.model.repositories.TagRepository;
 
 import java.util.List;
 

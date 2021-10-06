@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.repositories;
+package xyz.morlotti.lemur.model.repositories;
 
 import java.util.List;
 

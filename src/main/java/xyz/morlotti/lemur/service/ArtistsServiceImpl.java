@@ -3,7 +3,7 @@ package xyz.morlotti.lemur.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.morlotti.lemur.model.bean.Artist;
-import xyz.morlotti.lemur.repositories.ArtistRepository;
+import xyz.morlotti.lemur.model.repositories.ArtistRepository;
 
 import java.util.List;
 
