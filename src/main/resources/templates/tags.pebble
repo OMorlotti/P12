@@ -135,10 +135,12 @@
 
     $('#D49B8F37_A8AD_6223_4E2E_59F1D681980D').click(() => { // Delete tag
 
-        if(confirm('Confirm?'))
-        {
-            const row = table.row('.selected');
+        const row = table.row('.selected');
 
+        const data = row.data();
+
+        if(typeof data !== 'undefined' && confirm('Confirm?'))
+        {
             $.ajax({
                 url: '/api/tags/' + row.data().id,
                 method: 'DELETE',

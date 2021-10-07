@@ -2,6 +2,9 @@ package xyz.morlotti.lemur.model.bean;
 
 import lombok.*;
 
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.time.LocalDate;
 
@@ -42,11 +45,11 @@ public class Artist
 	@Column(name = "email", nullable = true, length = 256)
 	private String email;
 
-	@Column(name = "date_of_birth", nullable = true)
-	private Date dateOfBirth;
+	@Column(name = "year_of_birth", nullable = true, columnDefinition = "YEAR")
+	private Integer yearOfBirth;
 
-	@Column(name = "date_of_death", nullable = true)
-	private Date dateOfDeath;
+	@Column(name = "year_of_death", nullable = true, columnDefinition = "YEAR")
+	private Integer yearOfDeath;
 
 	@Column(name = "description", nullable = true, length = 4096)
 	private String description;

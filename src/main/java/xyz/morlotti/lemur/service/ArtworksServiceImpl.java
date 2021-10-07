@@ -19,4 +19,25 @@ public class ArtworksServiceImpl implements ArtworksService
 	{
 		return artworkRepository.findAll();
 	}
+
+	public void addArtwork(Artwork artwork)
+	{
+		artworkRepository.save(artwork);
+	}
+
+	public void updateArtwork(Artwork artwork)
+	{
+		Artwork existingArtwork = artworkRepository.findById(artwork.getId()).orElseThrow(() -> new RuntimeException("Artwork `" + artwork.getId() + "` not found"));
+
+		existingArtwork.setName(artwork.getName());
+
+		artworkRepository.save(existingArtwork);
+	}
+
+	public void deleteArtwork(int id)
+	{
+		Artwork existingArtwork = artworkRepository.findById(id).orElseThrow(() -> new RuntimeException("Artwork `" + id + "` not found"));
+
+		artworkRepository.delete(existingArtwork);
+	}
 }

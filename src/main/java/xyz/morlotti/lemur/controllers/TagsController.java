@@ -41,7 +41,7 @@ public class TagsController
 				tagsService.updateTag(tag);
 			}
 		}
-		catch(RuntimeException e)
+		catch(Exception e)
 		{
 			model.addAttribute("errorMessage", e.getMessage());
 		}
