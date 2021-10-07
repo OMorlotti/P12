@@ -116,7 +116,21 @@
 
     $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').click(() => { // Import artworks
 
-        alert('TODO');
+            $.ajax({
+                url: '/api/artworks/import',
+                method: 'GET',
+            }).done(function() {
+
+                table.ajax.reload();
+
+                alert('Success!!!');
+
+            }).fail(function() {
+
+                table.ajax.reload();
+
+                alert('Error!!!');
+            });
     });
 
     /*----------------------------------------------------------------------------------------------------------------*/
