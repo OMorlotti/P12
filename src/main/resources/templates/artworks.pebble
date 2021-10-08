@@ -47,7 +47,7 @@ tr.shown td.details-control {
 
                     <div class="form-group">
                         <label for="formName">Description</label>
-                        <input class="form-control form-control-sm" type="text" name="description" id="artworkDescription" />
+                        <textarea class="form-control form-control-sm" rows="8" name="description" id="artworkDescription"></textarea>
                     </div>
 
                 </form>
@@ -80,7 +80,7 @@ tr.shown td.details-control {
         </button>
     </div>
 
-    <table class="table table-sm w-100" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
+    <table class="table table-sm table-striped" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
         <thead>
             <tr>
                 <th></th>
@@ -133,7 +133,10 @@ tr.shown td.details-control {
         }, 250);
 
         return `
-<div class="alert alert-primary" role="alert">${d.description.replace('<', '&lt;').replace('>', '&gt;')}</div>
+<div class="form-group">
+    <label for="textarea_${d.id}">Description:</label>
+    <textarea class="form-control" rows="3" id="textarea_${d.id}" readonly="readonly">${d.description.replace('<', '&lt;').replace('>', '&gt;')}</textarea>
+</div>
 
 <select class="w-100 d-none" name="tags[]" multiple="multiple" id="select2_${d.id}">
 {% for tag in tags %}
@@ -164,28 +167,27 @@ tr.shown td.details-control {
 
     $('#D522155B_5EAF_1B0E_7333_74EEF1FAE766 tbody').on('click', 'td.table-value', function() {
 
-        var el = $(this).parent();
+        const el = $(this).parent();
 
-        if(el.hasClass('selected'))
-        {
-            el.removeClass('selected');
-        }
-        else
+        if(!el.hasClass('selected'))
         {
             table.$('tr.selected').removeClass('selected');
 
             el.addClass('selected');
         }
+        else
+        {
+            el.removeClass('selected');
+        }
     });
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
-    // Add event listener for opening and closing details
     $('#D522155B_5EAF_1B0E_7333_74EEF1FAE766 tbody').on('click', 'td.details-control', function() {
 
-        var tr = $(this).closest('tr');
+        const tr = $(this).closest('tr');
 
-        var row = table.row(tr);
+        const row = table.row(tr);
 
         if(row.child.isShown())
         {

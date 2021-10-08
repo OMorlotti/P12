@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.model.bean.ArtworkTag;

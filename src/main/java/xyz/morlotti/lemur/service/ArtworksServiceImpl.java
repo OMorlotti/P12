@@ -1,9 +1,6 @@
 package xyz.morlotti.lemur.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.model.bean.Artwork;
+import xyz.morlotti.lemur.model.bean.ArtworkTag;
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.repositories.ArtworkRepository;
 import xyz.morlotti.lemur.model.repositories.ArtworkTagRepository;
@@ -65,13 +63,35 @@ public class ArtworksServiceImpl implements ArtworksService
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Set<Integer> existingTags = artworkTagRepository.findTagsByArtworkId(id).stream().map(x -> x.getId()).collect(Collectors.toSet());
+		Artwork artwork = artworkRepository.findById(id).orElseThrow(() -> new RuntimeException("Artwork `" + id + "` not found"));
+
+		Map<Integer, Tag> map = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
+
+		List<Tag> tags = artworkTagRepository.findTagsByArtworkId(id);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		Set<Integer> existingTags = tags.stream().map(x -> /**/ x.getId() /**/).collect(Collectors.toSet());
 
 		Set<Integer> wantedTags = ids.stream().map(x -> Integer.valueOf(x)).collect(Collectors.toSet());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Map<Integer, Tag> map = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
+		Set<Integer> toBeRemovedSet = new HashSet<>(existingTags);
+		toBeRemovedSet.removeAll(wantedTags);
+
+		Set<Integer> toBeAddedSet = new HashSet<>(wantedTags);
+		toBeAddedSet.removeAll(existingTags);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		List<ArtworkTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtworkTag(null, artwork, map.get(x), null)).collect(Collectors.toList());
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		artworkTagRepository.deleteAllById(toBeRemovedSet);
+
+		artworkTagRepository.saveAll(toBeAddedList);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 	}
