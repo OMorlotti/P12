@@ -25,7 +25,7 @@ public class ArtistsControllerAPI
 		return new DataSource<Artist>(artistsService.getArtists());
 	}
 
-	@RequestMapping(value = "/api/artists/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/api/artists/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> deleteTags(@PathVariable("id") int id)
 	{
 		try

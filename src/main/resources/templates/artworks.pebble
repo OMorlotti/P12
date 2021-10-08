@@ -286,7 +286,8 @@ tr.shown td.details-control {
         $.ajax({
             url: '/api/artworks/' + id + '/tags',
             method: 'PUT',
-            data: tagIds,
+            data: tagIds.join(','),
+            contentType: 'text/plain',
         }).fail(function() {
 
             alert('Error!');

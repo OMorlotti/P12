@@ -15,5 +15,7 @@ public interface ArtworksService
 
 	void deleteArtwork(int id);
 
-	public List<Tag>findTagsById(int id);
+	public List<Tag> getTagsById(int id);
+
+	void setTagsById(int id, List<String> ids);
 }
