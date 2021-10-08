@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.model.bean.Artwork;
+import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.service.ArtworksService;
 import xyz.morlotti.lemur.controller_api.bean.DataSource;
+
+import java.util.List;
 
 @RestController
 public class ArtworksControllerAPI
@@ -38,5 +41,11 @@ public class ArtworksControllerAPI
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
+	}
+
+	@RequestMapping(value = "/api/artworks/{id}/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Tag> getTags(@PathVariable("id") int id)
+	{
+		return artworksService.findTagsById(id);
 	}
 }

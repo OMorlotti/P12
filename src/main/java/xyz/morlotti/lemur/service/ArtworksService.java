@@ -3,6 +3,7 @@ package xyz.morlotti.lemur.service;
 import java.util.List;
 
 import xyz.morlotti.lemur.model.bean.Artwork;
+import xyz.morlotti.lemur.model.bean.Tag;
 
 public interface ArtworksService
 {
@@ -13,4 +14,6 @@ public interface ArtworksService
 	void updateArtwork(Artwork artwork);
 
 	void deleteArtwork(int id);
+
+	public List<Tag>findTagsById(int id);
 }

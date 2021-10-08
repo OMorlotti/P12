@@ -6,13 +6,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.model.bean.Artwork;
+import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.repositories.ArtworkRepository;
+import xyz.morlotti.lemur.model.repositories.ArtworkTagRepository;
 
 @Service
 public class ArtworksServiceImpl implements ArtworksService
 {
 	@Autowired
 	ArtworkRepository artworkRepository;
+
+	@Autowired
+	ArtworkTagRepository artworkTagRepository;
 
 	@Override
 	public List<Artwork> getArtworks()
@@ -39,5 +44,10 @@ public class ArtworksServiceImpl implements ArtworksService
 		Artwork existingArtwork = artworkRepository.findById(id).orElseThrow(() -> new RuntimeException("Artwork `" + id + "` not found"));
 
 		artworkRepository.delete(existingArtwork);
+	}
+
+	public List<Tag>findTagsById(int id)
+	{
+		return artworkTagRepository.findTagsByArtworkId(id);
 	}
 }

@@ -18,8 +18,8 @@ public interface ArtistTagRepository extends JpaRepository<ArtistTag, Integer>
 	public List<Artist> findArtistsByTagId(@Param("tagId") String tagId);
 
 	@Query("SELECT t FROM lm_tags t, lm_artisttag at WHERE at.tag.id = t.id AND at.artist.id = :artistId")
-	public List<Tag> findTagsByArtistsId(@Param("artistId") String artistId);
+	public List<Tag> findTagsByArtistId(@Param("artistId") String artistId);
 
 	@Query("SELECT t FROM lm_tags t, lm_artisttag at WHERE at.tag.id = t.id AND at.artist.pseudo = :artistPseudo")
-	public List<Tag> findTagsByArtistsPseudo(@Param("artistPseudo") String artistPseudo);
+	public List<Tag> findTagsByArtistPseudo(@Param("artistPseudo") String artistPseudo);
 }

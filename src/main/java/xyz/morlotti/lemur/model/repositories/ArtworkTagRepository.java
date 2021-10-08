@@ -15,8 +15,8 @@ import xyz.morlotti.lemur.model.bean.ArtworkTag;
 public interface ArtworkTagRepository extends JpaRepository<ArtworkTag, Integer>
 {
 	@Query("SELECT a FROM lm_artworks a, lm_artworktag at WHERE at.artwork.id = a.id AND at.tag.id = :tagId")
-	public List<Artwork> findArtistsByTagId(@Param("tagId") String tagId);
+	public List<Artwork> findArtistsByTagId(@Param("tagId") int tagId);
 
 	@Query("SELECT t FROM lm_tags t, lm_artworktag at WHERE at.tag.id = t.id AND at.artwork.id = :artworkId")
-	public List<Tag> findTagsByArtistsId(@Param("artworkId") String artwork);
+	public List<Tag> findTagsByArtworkId(@Param("artworkId") int artwork);
 }
