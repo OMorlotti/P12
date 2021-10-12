@@ -41,8 +41,6 @@ public class Artwork
 	{
 		if(id > 0)
 		{
-			System.out.println(id);
-
 			artist = new Artist();
 
 			artist.setId(id);
