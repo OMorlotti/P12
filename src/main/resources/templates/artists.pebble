@@ -162,9 +162,9 @@ tr.shown td.details-control {
 </div>
 
 <select class="w-100 d-none" name="tags[]" multiple="multiple" id="select2_${d.id}">
-{% for tag in tags %}
+    {% for tag in tags %}
     <option value="{{ tag.id|escape }}">{{ tag.name|escape }}</option>
-{% endfor %}
+    {% endfor %}
 </select>
 `;
     }

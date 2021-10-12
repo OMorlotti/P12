@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.service.TagsService;
+import xyz.morlotti.lemur.service.ArtistsService;
 import xyz.morlotti.lemur.service.ArtworksService;
 
 @Controller
@@ -19,11 +20,16 @@ public class ArtworksController
 	ArtworksService artworksService;
 
 	@Autowired
+	ArtistsService artistsService;
+
+	@Autowired
 	TagsService tagsService;
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.GET)
 	public String artworks(Model model)
 	{
+		model.addAttribute("artists", artistsService.getArtists());
+
 		model.addAttribute("tags", tagsService.getTags());
 
 		return "artworks";
@@ -49,6 +55,8 @@ public class ArtworksController
 		{
 			model.addAttribute("errorMessage", e.getMessage());
 		}
+
+		model.addAttribute("artists", artistsService.getArtists());
 
 		model.addAttribute("tags", tagsService.getTags());
 

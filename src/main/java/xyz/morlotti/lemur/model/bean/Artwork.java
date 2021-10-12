@@ -37,6 +37,30 @@ public class Artwork
 	@JoinColumn(name = "artistFK", nullable = true)
 	private Artist artist;
 
+	public void setArtistId(Integer id)
+	{
+		if(id > 0)
+		{
+			System.out.println(id);
+
+			artist = new Artist();
+
+			artist.setId(id);
+		}
+	}
+
+	public Integer getArtistId()
+	{
+		if(artist != null)
+		{
+			return artist.getId();
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
 	public String getArtistPseudo()
 	{
 		if(artist != null)
