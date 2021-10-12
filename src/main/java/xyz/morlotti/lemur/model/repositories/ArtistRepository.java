@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import xyz.morlotti.lemur.model.bean.Artist;
+import xyz.morlotti.lemur.model.bean.Tag;
 
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Integer>

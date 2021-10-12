@@ -14,7 +14,6 @@ import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.service.ArtworksService;
 import xyz.morlotti.lemur.controller_api.bean.DataSource;
 
-
 @RestController
 public class ArtworksControllerAPI
 {

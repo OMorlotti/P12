@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.model.bean.Artist;
+import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
 
 @Controller
@@ -17,9 +18,14 @@ public class ArtistsController
 	@Autowired
 	ArtistsService artistsService;
 
+	@Autowired
+	TagsService tagsService;
+
 	@RequestMapping(value = "/artists", method = RequestMethod.GET)
-	public String artists()
+	public String artists(Model model)
 	{
+		model.addAttribute("tags", tagsService.getTags());
+
 		return "artists";
 	}
 
@@ -43,6 +49,8 @@ public class ArtistsController
 		{
 			model.addAttribute("errorMessage", e.getMessage());
 		}
+
+		model.addAttribute("tags", tagsService.getTags());
 
 		return "artists";
 	}

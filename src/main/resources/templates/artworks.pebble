@@ -135,7 +135,7 @@ tr.shown td.details-control {
         return `
 <div class="form-group">
     <label for="textarea_${d.id}">Description:</label>
-    <textarea class="form-control" rows="3" id="textarea_${d.id}" readonly="readonly">${d.description.replace('<', '&lt;').replace('>', '&gt;')}</textarea>
+    <textarea class="form-control" rows="3" id="textarea_${d.id}" readonly="readonly">${(d.description || '').replace('<', '&lt;').replace('>', '&gt;')}</textarea>
 </div>
 
 <select class="w-100 d-none" name="tags[]" multiple="multiple" id="select2_${d.id}">
