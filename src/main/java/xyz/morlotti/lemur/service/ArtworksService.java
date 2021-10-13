@@ -1,15 +1,20 @@
 package xyz.morlotti.lemur.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.model.bean.Tag;
+import xyz.morlotti.lemur.model.bean.Artwork;
 
 public interface ArtworksService
 {
 	List<Artwork> getArtworks();
 
+	Optional<Artwork> getArtworkById(int id);
+
 	void addArtwork(Artwork artwork);
+
+	void addArtworks(Iterable<Artwork> artworks);
 
 	void updateArtwork(Artwork artwork);
 

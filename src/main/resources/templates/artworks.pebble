@@ -41,12 +41,12 @@ tr.shown td.details-control {
                     <input type="hidden" value="-1" name="id" id="artworkId" />
 
                     <div class="form-group">
-                        <label for="formName">Nom<sup class="text-danger">*</sup></label>
+                        <label for="artworkName">Nom<sup class="text-danger">*</sup></label>
                         <input class="form-control form-control-sm" type="text" name="name" id="artworkName" required="required" />
                     </div>
 
                     <div class="form-group">
-                        <label for="formArtist">Artiste</label>
+                        <label for="artworkArtist">Artiste</label>
                         <select class="form-control form-control-sm" name="artistId" id="artworkArtist" style="border: 1px solid #ced4da; border-radius: 0.25rem; width: 100%;">
                             <option value="-1">N/A</option>
                             {% for artist in artists %}
@@ -56,8 +56,8 @@ tr.shown td.details-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="formName">Description</label>
-                        <textarea class="form-control form-control-sm" rows="8" name="description" id="artworkDescription"></textarea>
+                        <label for="artworkDescription">Description</label>
+                        <textarea class="form-control form-control-sm" rows="5" name="description" id="artworkDescription"></textarea>
                     </div>
 
                 </form>
@@ -219,19 +219,23 @@ tr.shown td.details-control {
 
     $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').click(() => { // Import artworks
 
-            $.ajax({
-                url: '/api/artworks/import',
-                method: 'GET',
-            }).done(function() {
+        $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', true);
 
-                table.ajax.reload();
-                alert('Success!');
+        $.ajax({
+            url: '/api/artworks/synchronize',
+            method: 'GET',
+        }).done(function() {
 
-            }).fail(function() {
+            $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', false);
+            table.ajax.reload();
+            alert('Success!');
 
-                table.ajax.reload();
-                alert('Error!');
-            });
+        }).fail(function() {
+
+            $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', false);
+            table.ajax.reload();
+            alert('Error!');
+        });
     });
 
     /*----------------------------------------------------------------------------------------------------------------*/

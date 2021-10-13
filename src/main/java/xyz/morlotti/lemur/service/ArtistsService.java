@@ -1,15 +1,20 @@
 package xyz.morlotti.lemur.service;
 
-import xyz.morlotti.lemur.model.bean.Artist;
-import xyz.morlotti.lemur.model.bean.Tag;
-
 import java.util.List;
+import java.util.Optional;
+
+import xyz.morlotti.lemur.model.bean.Tag;
+import xyz.morlotti.lemur.model.bean.Artist;
 
 public interface ArtistsService
 {
 	List<Artist> getArtists();
 
+	Optional<Artist> getArtistById(int id);
+
 	void addArtist(Artist artist);
+
+	void addArtists(Iterable<Artist> artists);
 
 	void updateArtist(Artist artist);
 

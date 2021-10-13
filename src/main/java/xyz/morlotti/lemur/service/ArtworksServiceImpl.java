@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.model.bean.ArtworkTag;
-import xyz.morlotti.lemur.model.bean.Tag;
+import xyz.morlotti.lemur.model.repositories.TagRepository;
 import xyz.morlotti.lemur.model.repositories.ArtworkRepository;
 import xyz.morlotti.lemur.model.repositories.ArtworkTagRepository;
-import xyz.morlotti.lemur.model.repositories.TagRepository;
 
 @Service
 public class ArtworksServiceImpl implements ArtworksService
@@ -32,9 +32,22 @@ public class ArtworksServiceImpl implements ArtworksService
 		return artworkRepository.findAll();
 	}
 
+	@Override
+	public Optional<Artwork> getArtworkById(int id)
+	{
+		return artworkRepository.findById(id);
+	}
+
+	@Override
 	public void addArtwork(Artwork artwork)
 	{
 		artworkRepository.save(artwork);
+	}
+
+	@Override
+	public void addArtworks(Iterable<Artwork> artworks)
+	{
+		artworkRepository.saveAll(artworks);
 	}
 
 	public void updateArtwork(Artwork artwork)
@@ -42,6 +55,8 @@ public class ArtworksServiceImpl implements ArtworksService
 		Artwork existingArtwork = artworkRepository.findById(artwork.getId()).orElseThrow(() -> new RuntimeException("Artwork `" + artwork.getId() + "` not found"));
 
 		existingArtwork.setName(artwork.getName());
+		existingArtwork.setArtist(artwork.getArtist());
+		existingArtwork.setDescription(artwork.getDescription());
 
 		artworkRepository.save(existingArtwork);
 	}

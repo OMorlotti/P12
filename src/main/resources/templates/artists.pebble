@@ -41,32 +41,32 @@ tr.shown td.details-control {
                     <input type="hidden" value="-1" name="id" id="artistId" />
 
                     <div class="form-group">
-                        <label for="formName">Prénom</label>
+                        <label for="artistFirstName">Prénom</label>
                         <input class="form-control form-control-sm" type="text" name="firstName" id="artistFirstName" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Nom</label>
+                        <label for="artistLastName">Nom</label>
                         <input class="form-control form-control-sm" type="text" name="lastName" id="artistLastName" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Pseudo<sup class="text-danger">*</sup></label>
+                        <label for="artistPseudo">Pseudo<sup class="text-danger">*</sup></label>
                         <input class="form-control form-control-sm" type="text" name="pseudo" id="artistPseudo" required="required" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Email</label>
+                        <label for="artistEmail">Email</label>
                         <input class="form-control form-control-sm" type="text" name="email" id="artistEmail" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Date de naissance</label>
+                        <label for="artistYearOfBirth">Date de naissance</label>
                         <input class="form-control form-control-sm" type="number" name="yearOfBirth" id="artistYearOfBirth" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Date de décès</label>
+                        <label for="artistYearOfDeath">Date de décès</label>
                         <input class="form-control form-control-sm" type="number" name="yearOfDeath" id="artistYearOfDeath" />
                     </div>
                     <div class="form-group">
-                        <label for="formName">Description</label>
-                        <input class="form-control form-control-sm" type="text" name="description" id="artistDescription" />
+                        <label for="artistDescription">Description</label>
+                        <textarea class="form-control form-control-sm" rows="5" name="description" id="artistDescription"></textarea>
                     </div>
                 </form>
 
@@ -151,10 +151,10 @@ tr.shown td.details-control {
 
         return `
 <div>
-    Année de naissance: ${(d.yearOfBirth || 'N/A').replace('<', '&lt;').replace('>', '&gt;')}
+    Année de naissance: ${(d.yearOfBirth || 'N/A')}
 </div>
 <div>
-    Année de mort: ${(d.yearOfDeath || 'N/A').replace('<', '&lt;').replace('>', '&gt;')}
+    Année de mort: ${(d.yearOfDeath || 'N/A')}
 </div>
 <div class="form-group">
     <label for="textarea_${d.id}">Description:</label>

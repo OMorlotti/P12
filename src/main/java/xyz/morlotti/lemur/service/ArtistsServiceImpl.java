@@ -1,21 +1,18 @@
 package xyz.morlotti.lemur.service;
 
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.model.bean.ArtistTag;
-import xyz.morlotti.lemur.model.bean.Tag;
+import xyz.morlotti.lemur.model.repositories.TagRepository;
 import xyz.morlotti.lemur.model.repositories.ArtistRepository;
 import xyz.morlotti.lemur.model.repositories.ArtistTagRepository;
-import xyz.morlotti.lemur.model.repositories.TagRepository;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistsServiceImpl implements ArtistsService
@@ -35,9 +32,22 @@ public class ArtistsServiceImpl implements ArtistsService
 		return artistRepository.findAll();
 	}
 
+	@Override
+	public Optional<Artist> getArtistById(int id)
+	{
+		return artistRepository.findById(id);
+	}
+
+	@Override
 	public void addArtist(Artist artist)
 	{
 		artistRepository.save(artist);
+	}
+
+	@Override
+	public void addArtists(Iterable<Artist> artists)
+	{
+		artistRepository.saveAll(artists);
 	}
 
 	public void updateArtist(Artist artist)

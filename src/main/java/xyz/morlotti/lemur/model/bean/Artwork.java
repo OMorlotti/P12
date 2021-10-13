@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.ReadOnlyProperty;
 
 @Data
 @Setter
