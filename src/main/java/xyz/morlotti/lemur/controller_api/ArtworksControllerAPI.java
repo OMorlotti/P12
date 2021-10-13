@@ -65,11 +65,15 @@ public class ArtworksControllerAPI
 	@RequestMapping(value = "/api/artworks/synchronize", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Artwork> synchronize()
 	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
 		List<Product> products = wooCommerce.getProducts();
 
 		List<Artwork> artworks = artworksService.getArtworks();
 
 		Set<Integer> alreadyImportedArtworks = artworks.stream().filter(x -> x.getWcId() != null).map(x -> x.getWcId()).collect(Collectors.toSet());
+
+		/*------------------------------------------------------------------------------------------------------------*/
 
 		List<Artwork> toBeAddedArtworks = new ArrayList<>();
 
@@ -87,7 +91,11 @@ public class ArtworksControllerAPI
 			}
 		}
 
+		/*------------------------------------------------------------------------------------------------------------*/
+
 		artworksService.addArtworks(toBeAddedArtworks);
+
+		/*------------------------------------------------------------------------------------------------------------*/
 
 		return toBeAddedArtworks;
 	}
