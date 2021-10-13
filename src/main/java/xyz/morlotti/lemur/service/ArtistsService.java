@@ -8,6 +8,8 @@ import xyz.morlotti.lemur.model.bean.Artist;
 
 public interface ArtistsService
 {
+	long countArtists();
+
 	List<Artist> getArtists();
 
 	Optional<Artist> getArtistById(int id);

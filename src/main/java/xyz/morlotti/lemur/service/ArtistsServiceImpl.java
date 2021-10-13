@@ -27,6 +27,12 @@ public class ArtistsServiceImpl implements ArtistsService
 	TagRepository tagRepository;
 
 	@Override
+	public long countArtists()
+	{
+		return artistRepository.count();
+	}
+
+	@Override
 	public List<Artist> getArtists()
 	{
 		return artistRepository.findAll();

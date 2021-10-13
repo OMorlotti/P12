@@ -47,7 +47,7 @@ tr.shown td.details-control {
 
                     <div class="form-group">
                         <label for="artworkArtist">Artiste</label>
-                        <select class="form-control form-control-sm" name="artistId" id="artworkArtist" style="border: 1px solid #ced4da; border-radius: 0.25rem; width: 100%;">
+                        <select class="form-control form-control-sm" name="artistId" id="artworkArtist">
                             <option value="-1">N/A</option>
                             {% for artist in artists %}
                             <option value="{{ artist.id|escape }}">{{ artist.pseudo|escape }}</option>

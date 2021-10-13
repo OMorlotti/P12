@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
 
 @FeignClient(value = "woocommerce", url = "${woocommerce.base_url}", configuration = WooCommerceClientConfiguration.class)
@@ -24,8 +23,4 @@ public interface WooCommerceClient
 	List<Product> getProducts();
 
 	/*----------------------------------------------------------------------------------------------------------------*/
-
-	@RequestMapping(method = RequestMethod.GET, value = "/artists", produces = MediaType.APPLICATION_JSON_VALUE)
-	List<Artist> getArtists();
-
 }

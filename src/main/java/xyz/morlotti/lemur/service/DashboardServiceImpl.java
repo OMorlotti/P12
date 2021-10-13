@@ -15,11 +15,19 @@ public class DashboardServiceImpl implements DashboardService
 	@Autowired
 	private WooCommerce wooCommerce;
 
+	@Override
+	public long countProducts()
+	{
+		return wooCommerce.countProducts();
+	}
+
+	@Override
 	public List<Product> getProducts()
 	{
 		return wooCommerce.getProducts();
 	}
 
+	@Override
 	public List<Product> getLastThreeProducts()
 	{
 		List<Product> result = new ArrayList<>();

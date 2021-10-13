@@ -2,22 +2,21 @@ package xyz.morlotti.lemur.clients.woocommerce.service;
 
 import java.util.List;
 
-import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
 
 public interface WooCommerce
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public List<Object> getOrders();
+	long countOrders();
+
+	List<Object> getOrders();
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public List<Product> getProducts();
+	long countProducts();
 
-	/*----------------------------------------------------------------------------------------------------------------*/
-
-	public List<Artist> getArtists();
+	List<Product> getProducts();
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 }

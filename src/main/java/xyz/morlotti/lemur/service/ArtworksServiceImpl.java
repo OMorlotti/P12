@@ -33,6 +33,12 @@ public class ArtworksServiceImpl implements ArtworksService
 	}
 
 	@Override
+	public long countArtworks()
+	{
+		return artworkRepository.count();
+	}
+
+	@Override
 	public Optional<Artwork> getArtworkById(int id)
 	{
 		return artworkRepository.findById(id);

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "lm_artists")
 @Table(name = "lm_artists", indexes = {
 	@Index(name = "uniqueIndex1", columnList = "pseudo", unique = true),
-	@Index(name = "uniqueIndex2", columnList = "email", unique = true)
 })
 public class Artist
 {

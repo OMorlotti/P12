@@ -8,6 +8,9 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Data
 @Setter
 @Getter
@@ -27,11 +30,13 @@ public class ArtworkTag
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "artworkFK", nullable = false)
 	private Artwork artwork;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "tagFK", nullable = false)
 	private Tag tag;
 

@@ -8,15 +8,46 @@
 
 {% block content %}
 <div class="p-2">
-    <p>Nombre de produits:</p>
 
-    <p>3 derniers produits ajoutés :</p>
+    <h1>Bonjour !</h1>
 
-    <ul>
-        {% for product in lastThreeProducts %}
-        <li>{{ product.name|escape }}</li>
-        {% endfor %}
-    </ul>
+    <hr />
+
+    <div class="card w-50 mb-4 mx-auto">
+        <div class="card-header p-2">
+            Nombre d'artistes <span class="badge badge-pill badge-success">{{ numberOfArtists }}</span>
+        </div>
+        <div class="card-body text-right">
+            <a class="btn btn-sm btn-primary badge-pill" href="/artists">
+                <i class="bi bi-arrow-right-circle-fill"></i> Voir le détail
+            </a>
+        </div>
+    </div>
+
+    <div class="card w-50 mb-4 mx-auto">
+        <div class="card-header p-2">
+            Nombre d'œuvres <span class="badge badge-pill badge-success">{{ numberOfArtworks }}</span>, dans le shop <span class="badge badge-pill badge-success">{{ numberOfArtworksInShop }}</span>
+        </div>
+        <div class="card-body text-right">
+            <a class="btn btn-sm btn-primary badge-pill" href="/artworks">
+                <i class="bi bi-arrow-right-circle-fill"></i> Voir le détail
+            </a>
+        </div>
+    </div>
+
+    <div class="card w-50 mb-4 mx-auto">
+        <div class="card-header p-2">
+            3 derniers produits ajoutés
+        </div>
+        <div class="card-body">
+            <ul>
+                {% for product in lastThreeProducts %}
+                <li>{{ product.name|escape }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
 import xyz.morlotti.lemur.clients.woocommerce.proxy.WooCommerceClient;
 
@@ -19,6 +18,12 @@ public class WooCommerceImpl implements WooCommerce
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	@Override
+	public long countOrders()
+	{
+		return wooCommerceClients.getOrders().size();
+	}
+
 	public List<Object> getOrders()
 	{
 		return wooCommerceClients.getOrders();
@@ -26,16 +31,17 @@ public class WooCommerceImpl implements WooCommerce
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	@Override
+	public long countProducts()
+	{
+		return wooCommerceClients.getProducts().size();
+	}
+
+
+	@Override
 	public List<Product> getProducts()
 	{
 		return wooCommerceClients.getProducts();
-	}
-
-	/*----------------------------------------------------------------------------------------------------------------*/
-
-	public List<Artist> getArtists()
-	{
-		return wooCommerceClients.getArtists();
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

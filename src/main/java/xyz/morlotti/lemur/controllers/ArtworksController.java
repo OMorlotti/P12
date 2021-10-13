@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
 import xyz.morlotti.lemur.service.ArtworksService;
-
-import java.util.Optional;
 
 @Controller
 public class ArtworksController
