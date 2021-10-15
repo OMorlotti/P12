@@ -39,13 +39,13 @@
         <div class="card-header p-2">
             3 derniers produits ajoutés
         </div>
-        <div class="card-body">
-            <ul>
-                {% for product in lastThreeProducts %}
-                <li>{{ product.name|escape }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+        <ul class="list-group list-group-flush">
+            {% for product in lastThreeProducts %}
+            <li class="list-group-item">
+                <a href="{{ product.permalink }}" target="_blank"><i class="bi bi-link"></i> {{ product.name|escape }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 
 </div>

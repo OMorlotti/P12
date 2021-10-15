@@ -15,6 +15,10 @@ tr td.details-control {
 tr.shown td.details-control {
     background: url('https://icons.getbootstrap.com/assets/icons/dash-circle.svg') no-repeat center center;
 }
+
+td.table-link {
+    width: 125px;
+}
 </style>
 
 {% endblock %}
@@ -94,9 +98,9 @@ tr.shown td.details-control {
         <thead>
             <tr>
                 <th></th>
-                <th>id</th>
                 <th>Nom</th>
                 <th>Artiste</th>
+                <th>Lien Shop</th>
             </tr>
         </thead>
     </table>
@@ -167,9 +171,16 @@ tr.shown td.details-control {
                 'data'          : null,
                 'defaultContent': '',
             },
-            { 'className': 'table-value', 'data': 'id' },
             { 'className': 'table-value', 'data': 'name' },
             { 'className': 'table-value', 'data': 'artistPseudo' },
+            { 'className': 'table-link', 'data': 'wcPermalink', 'orderable': false, render: function(data, type) {
+
+                if(data === null)
+                {
+                    return 'N/A';
+                }
+                return '<a href="' + data + '" target="_blank"><i class="bi bi-link"></i></a>';
+            }},
         ]
     });
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import xyz.morlotti.lemur.clients.github.bean.GitHubTree;
 import xyz.morlotti.lemur.clients.github.bean.GitHubUser;
+import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 import xyz.morlotti.lemur.clients.github.bean.GitHubVersion;
 import xyz.morlotti.lemur.clients.github.proxy.GitHubClient;
 
@@ -40,6 +41,14 @@ public class GitHubImpl implements GitHub
 	public List<GitHubVersion> versions(String path)
 	{
 		return gitHubClients.versions(path);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public GitHubContent getContent(String path)
+	{
+		return gitHubClients.getContent(path);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

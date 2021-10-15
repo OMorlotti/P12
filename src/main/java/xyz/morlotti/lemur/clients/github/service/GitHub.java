@@ -1,5 +1,6 @@
 package xyz.morlotti.lemur.clients.github.service;
 
+import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 import xyz.morlotti.lemur.clients.github.bean.GitHubTree;
 import xyz.morlotti.lemur.clients.github.bean.GitHubUser;
 import xyz.morlotti.lemur.clients.github.bean.GitHubVersion;
@@ -19,6 +20,10 @@ public interface GitHub
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	List<GitHubVersion> versions(String path);
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	GitHubContent getContent(String path);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 }

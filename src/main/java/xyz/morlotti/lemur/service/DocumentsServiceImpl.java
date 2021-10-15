@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xyz.morlotti.lemur.service.bean.TreeItem;
 import xyz.morlotti.lemur.clients.github.service.GitHub;
 import xyz.morlotti.lemur.clients.github.bean.GitHubTree;
+import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 import xyz.morlotti.lemur.clients.github.bean.GitHubTreeItem;
 
 @Service
@@ -171,6 +172,14 @@ public class DocumentsServiceImpl implements DocumentsService
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		return dict;
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public GitHubContent getContent(String path)
+	{
+		return gitHub.getContent(path);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

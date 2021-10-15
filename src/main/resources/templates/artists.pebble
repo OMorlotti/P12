@@ -99,10 +99,9 @@ tr.shown td.details-control {
         <thead>
             <tr>
                 <th></th>
-                <th>id</th>
+                <th>Pseudo</th>
                 <th>Prénom</th>
                 <th>Nom</th>
-                <th>Pseudo</th>
                 <th>Email</th>
             </tr>
         </thead>
@@ -180,10 +179,9 @@ tr.shown td.details-control {
                 'data'          : null,
                 'defaultContent': '',
             },
-            { 'className': 'table-value', 'data': 'id' },
+            { 'className': 'table-value', 'data': 'pseudo' },
             { 'className': 'table-value', 'data': 'firstName' },
             { 'className': 'table-value', 'data': 'lastName' },
-            { 'className': 'table-value', 'data': 'pseudo' },
             { 'className': 'table-value', 'data': 'email' },
         ]
     });

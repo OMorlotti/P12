@@ -84,6 +84,7 @@ public class ArtworksControllerAPI
 				Artwork artwork = new Artwork();
 
 				artwork.setWcId(product.getId());
+				artwork.setWcPermalink(product.getPermalink());
 				artwork.setName(product.getName());
 				artwork.setDescription(product.getDescription().replace("<p>", "").replace("</p>", "").replace("\n", " ").trim());
 

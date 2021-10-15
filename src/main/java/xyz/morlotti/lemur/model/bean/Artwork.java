@@ -28,6 +28,9 @@ public class Artwork
 	@Column(name = "wc_id", nullable = true)
 	private Integer wcId;
 
+	@Column(name = "wc_permalink", nullable = true, length = 512)
+	private String wcPermalink;
+
 	@Column(name = "name", nullable = false, length = 256)
 	private String name;
 
