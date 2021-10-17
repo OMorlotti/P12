@@ -12,8 +12,12 @@ import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 @Service
 public class DashboardServiceImpl implements DashboardService
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	private WooCommerce wooCommerce;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public long countProducts()
@@ -21,11 +25,15 @@ public class DashboardServiceImpl implements DashboardService
 		return wooCommerce.countProducts();
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public List<Product> getProducts()
 	{
 		return wooCommerce.getProducts();
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public List<Product> getLastThreeProducts()
@@ -41,4 +49,6 @@ public class DashboardServiceImpl implements DashboardService
 
 		return result;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

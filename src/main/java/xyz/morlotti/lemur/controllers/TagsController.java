@@ -16,14 +16,20 @@ import xyz.morlotti.lemur.service.TagsService;
 @Controller
 public class TagsController
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	TagsService tagsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
 	public String tags()
 	{
 		return "tags";
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/tags", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String addUpdateTag(@ModelAttribute("tag") Tag tag, Model model)
@@ -48,4 +54,6 @@ public class TagsController
 
 		return "tags";
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

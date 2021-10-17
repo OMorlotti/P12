@@ -17,29 +17,44 @@ import java.util.Map;
 @Controller
 public class DocumentsController
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	DocumentsService documentsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/documents", method = RequestMethod.GET)
 	public String documents(@RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
 	{
-		Map<String, TreeItem> map = documentsService.getTree("master");
-
-		if(map.containsKey(path))
+		try
 		{
-			TreeItem treeItem = map.get(path);
+			Map<String, TreeItem> map = documentsService.getTree("master");
 
-			model.addAttribute("treeItem", treeItem);
+			if(map.containsKey(path))
+			{
+				TreeItem treeItem = map.get(path);
 
-			return "documents";
+				model.addAttribute("treeItem", treeItem);
+
+				return "documents";
+			}
+			else
+			{
+				model.addAttribute("path", path);
+
+				return "notFound";
+			}
 		}
-		else
+		catch(Exception e)
 		{
-			model.addAttribute("path", path);
+			model.addAttribute("errorMessage", e.getMessage());
 
-			return "notFound";
+			return "error";
 		}
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/documents/{commitId}", method = RequestMethod.GET)
 	public String documents(@PathVariable("commitId") String commitId, @RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
@@ -61,4 +76,6 @@ public class DocumentsController
 			return "notFound";
 		}
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

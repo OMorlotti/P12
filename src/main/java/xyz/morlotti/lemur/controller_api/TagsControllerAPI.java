@@ -16,14 +16,20 @@ import xyz.morlotti.lemur.controller_api.bean.DataSource;
 @RestController
 public class TagsControllerAPI
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	TagsService tagsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataSource<Tag> tags()
 	{
 		return new DataSource<Tag>(tagsService.getTags());
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/tags/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> deleteTags(@PathVariable("id") int id)
@@ -39,4 +45,6 @@ public class TagsControllerAPI
 
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

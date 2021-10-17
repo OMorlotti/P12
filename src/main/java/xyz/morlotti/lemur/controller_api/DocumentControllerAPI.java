@@ -17,8 +17,12 @@ import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 @RestController
 public class DocumentControllerAPI
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	DocumentsService documentsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/documents/download", method = RequestMethod.GET)
 	public void documents(@RequestParam(name = "path", required = true) String path, HttpServletResponse response)
@@ -50,4 +54,6 @@ public class DocumentControllerAPI
 			e.printStackTrace();
 		}
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

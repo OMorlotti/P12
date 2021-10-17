@@ -1,11 +1,11 @@
 package xyz.morlotti.lemur.clients.github.service;
 
-import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
+import java.util.List;
+
 import xyz.morlotti.lemur.clients.github.bean.GitHubTree;
 import xyz.morlotti.lemur.clients.github.bean.GitHubUser;
+import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 import xyz.morlotti.lemur.clients.github.bean.GitHubVersion;
-
-import java.util.List;
 
 public interface GitHub
 {

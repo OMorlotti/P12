@@ -19,17 +19,25 @@ import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 @RestController
 public class ArtworksControllerAPI
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtworksService artworksService;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	WooCommerce wooCommerce;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artworks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataSource<Artwork> artworks()
 	{
 		return new DataSource<Artwork>(artworksService.getArtworks());
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artworks/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> deleteArtworks(@PathVariable("id") int id)
@@ -46,11 +54,15 @@ public class ArtworksControllerAPI
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@RequestMapping(value = "/api/artworks/{id}/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Tag> getTags(@PathVariable("id") int id)
 	{
 		return artworksService.getTagsById(id);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artworks/{id}/tags", method = RequestMethod.PUT, consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody String list)
@@ -61,6 +73,8 @@ public class ArtworksControllerAPI
 
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artworks/synchronize", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Artwork> synchronize()
@@ -100,4 +114,6 @@ public class ArtworksControllerAPI
 
 		return toBeAddedArtworks;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

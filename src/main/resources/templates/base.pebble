@@ -17,7 +17,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-1 py-0 mb-2">
             <a class="navbar-brand" href="{{ href('/') }}">
-                Le M.U.R. Grenoble
+                <img src="/static/logo.jpg" alt="Le M.U.R. Grenoble" style="width: 45px;" />
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
@@ -50,15 +50,18 @@
         <div class="container rounded-top shadow-lg bg-white p-0">
 
             {% if errorMessage %}
-            <div class="alert alert-danger">
-                {{ errorMessage|escape }}
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">&times;</span>
-				</button>
+            <div class="p-1">
+				<div class="alert alert-danger">
+					{{ errorMessage|escape }}
+
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
             </div>
             {% endif %}
 
-            {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
         </div>
 

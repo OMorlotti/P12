@@ -17,14 +17,20 @@ import xyz.morlotti.lemur.controller_api.bean.DataSource;
 @RestController
 public class ArtistsControllerAPI
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtistsService artistsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artists", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataSource<Artist> artists()
 	{
 		return new DataSource<Artist>(artistsService.getArtists());
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artists/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> deleteTags(@PathVariable("id") int id)
@@ -41,11 +47,15 @@ public class ArtistsControllerAPI
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@RequestMapping(value = "/api/artists/{id}/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Tag> getTags(@PathVariable("id") int id)
 	{
 		return artistsService.getTagsById(id);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artists/{id}/tags", method = RequestMethod.PUT, consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody String list)
@@ -56,4 +66,6 @@ public class ArtistsControllerAPI
 
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

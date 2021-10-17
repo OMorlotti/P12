@@ -13,23 +13,42 @@ import xyz.morlotti.lemur.service.DashboardService;
 @Controller
 public class DashboardController
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtistsService artistsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
 	ArtworksService artworksService;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	DashboardService dashboardService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model)
 	{
-		model.addAttribute("numberOfArtists", artistsService.countArtists());
-		model.addAttribute("numberOfArtworks", artworksService.countArtworks());
-		model.addAttribute("numberOfArtworksInShop", dashboardService.countProducts());
-		model.addAttribute("lastThreeProducts", dashboardService.getLastThreeProducts());
+		try
+		{
+			model.addAttribute("numberOfArtists", artistsService.countArtists());
+			model.addAttribute("numberOfArtworks", artworksService.countArtworks());
+			model.addAttribute("numberOfArtworksInShop", dashboardService.countProducts());
+			model.addAttribute("lastThreeProducts", dashboardService.getLastThreeProducts());
 
-		return "dashboard";
+			return "dashboard";
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", e.getMessage());
+
+			return "error";
+		}
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

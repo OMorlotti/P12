@@ -1,20 +1,28 @@
 package xyz.morlotti.lemur.security.service;
 
+import java.util.List;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class UserDetailsImpl implements UserDetails
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	private final String username;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	private final String password;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	private final Collection<? extends GrantedAuthority> authorities;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	public UserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities)
 	{
@@ -22,6 +30,8 @@ public class UserDetailsImpl implements UserDetails
 		this.password = password;
 		this.authorities = authorities;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	public static UserDetailsImpl build(String username, String password)
 	{
@@ -36,6 +46,8 @@ public class UserDetailsImpl implements UserDetails
 		);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities()
 	{
@@ -47,11 +59,15 @@ public class UserDetailsImpl implements UserDetails
 		return this.authorities.stream().anyMatch(x -> x.toString().equals(authority));
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public String getUsername()
 	{
 		return this.username;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public String getPassword()
@@ -59,11 +75,15 @@ public class UserDetailsImpl implements UserDetails
 		return this.password;
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public boolean isEnabled()
 	{
 		return true;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public boolean isAccountNonExpired()
@@ -71,15 +91,21 @@ public class UserDetailsImpl implements UserDetails
 		return true;
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public boolean isAccountNonLocked()
 	{
 		return true;
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public boolean isCredentialsNonExpired()
 	{
 		return true;
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

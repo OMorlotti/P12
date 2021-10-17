@@ -17,14 +17,22 @@ import xyz.morlotti.lemur.model.repositories.ArtistTagRepository;
 @Service
 public class ArtistsServiceImpl implements ArtistsService
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtistRepository artistRepository;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
 	ArtistTagRepository artistTagRepository;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	TagRepository tagRepository;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public long countArtists()
@@ -32,11 +40,15 @@ public class ArtistsServiceImpl implements ArtistsService
 		return artistRepository.count();
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public List<Artist> getArtists()
 	{
 		return artistRepository.findAll();
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public Optional<Artist> getArtistById(int id)
@@ -44,11 +56,15 @@ public class ArtistsServiceImpl implements ArtistsService
 		return artistRepository.findById(id);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public void addArtist(Artist artist)
 	{
 		artistRepository.save(artist);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void addArtists(Iterable<Artist> artists)
@@ -56,6 +72,9 @@ public class ArtistsServiceImpl implements ArtistsService
 		artistRepository.saveAll(artists);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
 	public void updateArtist(Artist artist)
 	{
 		Artist existingArtist = artistRepository.findById(artist.getId()).orElseThrow(() -> new RuntimeException("Artist `" + artist.getId() + "` not found"));
@@ -71,6 +90,9 @@ public class ArtistsServiceImpl implements ArtistsService
 		artistRepository.save(existingArtist);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
 	public void deleteArtist(int id)
 	{
 		Artist existingArtist = artistRepository.findById(id).orElseThrow(() -> new RuntimeException("Artist `" + id + "` not found"));
@@ -78,11 +100,15 @@ public class ArtistsServiceImpl implements ArtistsService
 		artistRepository.delete(existingArtist);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public List<Tag> getTagsById(int id)
 	{
 		return artistTagRepository.findTagsByArtistId(id);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void setTagsById(int id, List<String> ids)
@@ -121,4 +147,6 @@ public class ArtistsServiceImpl implements ArtistsService
 
 		/*------------------------------------------------------------------------------------------------------------*/
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

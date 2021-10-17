@@ -16,24 +16,41 @@ import xyz.morlotti.lemur.service.ArtworksService;
 @Controller
 public class ArtworksController
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtworksService artworksService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
 	ArtistsService artistsService;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	TagsService tagsService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.GET)
 	public String artworks(Model model)
 	{
-		model.addAttribute("artists", artistsService.getArtists());
+		try
+		{
+			model.addAttribute("artists", artistsService.getArtists());
 
-		model.addAttribute("tags", tagsService.getTags());
+			model.addAttribute("tags", tagsService.getTags());
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", e.getMessage());
+		}
 
 		return "artworks";
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String addUpdateArtists(@ModelAttribute("artwork") Artwork artwork, Model model)
@@ -56,10 +73,19 @@ public class ArtworksController
 			model.addAttribute("errorMessage", e.getMessage());
 		}
 
-		model.addAttribute("artists", artistsService.getArtists());
+		try
+		{
+			model.addAttribute("artists", artistsService.getArtists());
 
-		model.addAttribute("tags", tagsService.getTags());
+			model.addAttribute("tags", tagsService.getTags());
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", e.getMessage());
+		}
 
 		return "artworks";
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

@@ -17,14 +17,22 @@ import xyz.morlotti.lemur.model.repositories.ArtworkTagRepository;
 @Service
 public class ArtworksServiceImpl implements ArtworksService
 {
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	ArtworkRepository artworkRepository;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
 	ArtworkTagRepository artworkTagRepository;
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Autowired
 	TagRepository tagRepository;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public List<Artwork> getArtworks()
@@ -32,11 +40,15 @@ public class ArtworksServiceImpl implements ArtworksService
 		return artworkRepository.findAll();
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public long countArtworks()
 	{
 		return artworkRepository.count();
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public Optional<Artwork> getArtworkById(int id)
@@ -44,11 +56,15 @@ public class ArtworksServiceImpl implements ArtworksService
 		return artworkRepository.findById(id);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Override
 	public void addArtwork(Artwork artwork)
 	{
 		artworkRepository.save(artwork);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void addArtworks(Iterable<Artwork> artworks)
@@ -56,6 +72,9 @@ public class ArtworksServiceImpl implements ArtworksService
 		artworkRepository.saveAll(artworks);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
 	public void updateArtwork(Artwork artwork)
 	{
 		Artwork existingArtwork = artworkRepository.findById(artwork.getId()).orElseThrow(() -> new RuntimeException("Artwork `" + artwork.getId() + "` not found"));
@@ -67,6 +86,9 @@ public class ArtworksServiceImpl implements ArtworksService
 		artworkRepository.save(existingArtwork);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
 	public void deleteArtwork(int id)
 	{
 		Artwork existingArtwork = artworkRepository.findById(id).orElseThrow(() -> new RuntimeException("Artwork `" + id + "` not found"));
@@ -74,10 +96,15 @@ public class ArtworksServiceImpl implements ArtworksService
 		artworkRepository.delete(existingArtwork);
 	}
 
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
 	public List<Tag> getTagsById(int id)
 	{
 		return artworkTagRepository.findTagsByArtworkId(id);
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
 	public void setTagsById(int id, List<String> ids)
@@ -116,4 +143,6 @@ public class ArtworksServiceImpl implements ArtworksService
 
 		/*------------------------------------------------------------------------------------------------------------*/
 	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

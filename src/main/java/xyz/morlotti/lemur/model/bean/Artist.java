@@ -2,10 +2,6 @@ package xyz.morlotti.lemur.model.bean;
 
 import lombok.*;
 
-import java.text.SimpleDateFormat;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.time.LocalDate;
 
 import javax.persistence.*;

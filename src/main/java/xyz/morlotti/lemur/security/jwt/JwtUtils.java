@@ -1,13 +1,13 @@
 package xyz.morlotti.lemur.security.jwt;
 
+import lombok.extern.log4j.*;
+
 import java.util.*;
 import java.security.*;
 
 import javax.crypto.spec.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-
-import lombok.extern.log4j.*;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.*;
