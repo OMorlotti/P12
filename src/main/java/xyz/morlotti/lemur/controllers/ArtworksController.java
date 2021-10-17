@@ -15,6 +15,7 @@ import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
 import xyz.morlotti.lemur.service.ArtworksService;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller
@@ -57,7 +58,7 @@ public class ArtworksController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateArtists(@ModelAttribute("artwork") Artwork artwork, BindingResult result, Model model)
+	public String addUpdateArtists(@Valid @ModelAttribute("artwork") Artwork artwork, BindingResult result, Model model)
 	{
 		if(!result.hasErrors())
 		{

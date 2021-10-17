@@ -87,7 +87,7 @@ public class AuthController
 		{
 			/*--------------------------------------------------------------------------------------------------------*/
 
-			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("errorMessage", "Login et/ou mot de passe incorrect");
 
 			/*--------------------------------------------------------------------------------------------------------*/
 

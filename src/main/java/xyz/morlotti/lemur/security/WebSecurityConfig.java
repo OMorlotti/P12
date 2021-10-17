@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 			                    .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 			.anyRequest().authenticated()
 		    .and()
-		    .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
+		    .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() { // Déclenché lorsqu'une authentification est requise
 
 				@Override
 				public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)
