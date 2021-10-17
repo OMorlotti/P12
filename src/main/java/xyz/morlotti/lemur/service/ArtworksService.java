@@ -25,4 +25,6 @@ public interface ArtworksService
 	List<Tag> getTagsById(int id);
 
 	void setTagsById(int id, List<String> ids);
+
+	List<Artwork> synchronize();
 }

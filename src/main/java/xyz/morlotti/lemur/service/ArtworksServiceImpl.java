@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
+import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
+
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.model.bean.ArtworkTag;
@@ -31,6 +34,11 @@ public class ArtworksServiceImpl implements ArtworksService
 
 	@Autowired
 	TagRepository tagRepository;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Autowired
+	WooCommerce wooCommerce;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
@@ -142,6 +150,47 @@ public class ArtworksServiceImpl implements ArtworksService
 		artworkTagRepository.saveAll(toBeAddedList);
 
 		/*------------------------------------------------------------------------------------------------------------*/
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public List<Artwork> synchronize()
+	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		List<Product> products = wooCommerce.getProducts();
+
+		List<Artwork> artworks = /**/this/**/.getArtworks();
+
+		Set<Integer> alreadyImportedArtworks = artworks.stream().filter(x -> x.getWcId() != null).map(x -> x.getWcId()).collect(Collectors.toSet());
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		List<Artwork> toBeAddedArtworks = new ArrayList<>();
+
+		for(Product product: products)
+		{
+			if(!alreadyImportedArtworks.contains(product.getId()))
+			{
+				Artwork artwork = new Artwork();
+
+				artwork.setWcId(product.getId());
+				artwork.setWcPermalink(product.getPermalink());
+				artwork.setName(product.getName());
+				artwork.setDescription(product.getDescription().replace("<p>", "").replace("</p>", "").replace("\n", " ").trim());
+
+				toBeAddedArtworks.add(artwork);
+			}
+		}
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		this.addArtworks(toBeAddedArtworks);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		return toBeAddedArtworks;
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
