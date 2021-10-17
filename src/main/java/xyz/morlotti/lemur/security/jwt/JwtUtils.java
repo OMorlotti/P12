@@ -57,7 +57,7 @@ public class JwtUtils
 
 	public Optional<String> validateJwtToken(String token)
 	{
-		if(token != null)
+		if(token != null && !token.isEmpty())
 		{
 			try
 			{

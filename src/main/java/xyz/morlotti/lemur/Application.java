@@ -3,9 +3,7 @@ package xyz.morlotti.lemur;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Optional;
 
-import com.mitchellbosecke.pebble.error.PebbleException;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.boot.SpringApplication;

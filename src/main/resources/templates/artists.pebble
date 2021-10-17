@@ -141,9 +141,9 @@ tr.shown td.details-control {
                     setTags(d.id, $(this).val());
                 });
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                alert('Error!!!');
+                alert('Error: ' + textStatus);
             });
 
         }, 250);
@@ -240,10 +240,9 @@ tr.shown td.details-control {
                 table.ajax.reload();
                 alert('Success!');
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                table.ajax.reload();
-                alert('Error!');
+                alert(Error: ' + textStatus);
             });
     });
 
@@ -307,9 +306,9 @@ tr.shown td.details-control {
 
                 row.remove().draw(false);
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                alert('Error!!!');
+                alert('Error: ' + textStatus);
             });
         }
     });
@@ -323,9 +322,9 @@ tr.shown td.details-control {
             method: 'PUT',
             data: tagIds.join(','),
             contentType: 'text/plain',
-        }).fail(function() {
+        }).fail(function(jqXHR, textStatus) {
 
-            alert('Error!');
+            alert('Error: ' + textStatus);
         });
     }
 

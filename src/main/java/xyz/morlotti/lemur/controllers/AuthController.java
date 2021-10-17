@@ -18,9 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import xyz.morlotti.lemur.controllers.bean.Credentials;
 import xyz.morlotti.lemur.security.jwt.JwtUtils;
-
+import xyz.morlotti.lemur.controllers.bean.Credentials;
 
 @Controller
 public class AuthController
@@ -38,15 +37,21 @@ public class AuthController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
-	public String signIn1(ModelMap model)
+	public ModelAndView signIn1(ModelMap model)
 	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
 		Calendar cal = Calendar.getInstance();
 
 		int year = cal.get(Calendar.YEAR);
 
 		model.addAttribute("year", year);
 
-		return "sign-in";
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		return new ModelAndView("sign-in");
+
+		/*------------------------------------------------------------------------------------------------------------*/
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
@@ -80,17 +85,11 @@ public class AuthController
 		{
 			/*--------------------------------------------------------------------------------------------------------*/
 
-			Calendar cal = Calendar.getInstance();
-
-			int year = cal.get(Calendar.YEAR);
-
-			model.addAttribute("year", year);
-
 			model.addAttribute("errorMessage", e.getMessage());
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
-			return new ModelAndView("sign-in", model);
+			return signIn1(model);
 
 			/*--------------------------------------------------------------------------------------------------------*/
 		}
@@ -99,7 +98,7 @@ public class AuthController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/sign-out", method = RequestMethod.GET)
-	public String signOut(ModelMap model, HttpServletResponse httpServletResponse)
+	public ModelAndView signOut(HttpServletResponse httpServletResponse)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -107,15 +106,9 @@ public class AuthController
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Calendar cal = Calendar.getInstance();
-
-		int year = cal.get(Calendar.YEAR);
-
-		model.addAttribute("year", year);
+		return new ModelAndView("redirect:/sign-in");
 
 		/*------------------------------------------------------------------------------------------------------------*/
-
-		return "sign-in";
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

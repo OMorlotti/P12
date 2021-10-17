@@ -148,10 +148,10 @@
 
                 row.remove().draw(false);
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                alert('Error!!!');
-            });
+            alert('Error: ' + textStatus);
+        });
         }
     });
 

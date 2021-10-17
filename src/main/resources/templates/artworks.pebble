@@ -139,10 +139,10 @@ td.table-link {
                     setTags(d.id, $(this).val());
                 });
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                alert('Error!!!');
-            });
+				alert('Error: ' + textStatus);
+			});
 
         }, 250);
 
@@ -228,7 +228,7 @@ td.table-link {
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
-    $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').click(() => { // Import artworks
+    $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').click(() => { // Synchronize artworks
 
         $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', true);
 
@@ -239,13 +239,13 @@ td.table-link {
 
             $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', false);
             table.ajax.reload();
-            alert('Success!');
+            alert('Success: ' + 'synchronized');
 
-        }).fail(function() {
+        }).fail(function(jqXHR, textStatus) {
 
             $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').prop('disabled', false);
             table.ajax.reload();
-            alert('Error!');
+            alert('Error: ' + textStatus);
         });
     });
 
@@ -301,10 +301,10 @@ td.table-link {
 
                 row.remove().draw(false);
 
-            }).fail(function() {
+            }).fail(function(jqXHR, textStatus) {
 
-                alert('Error!!!');
-            });
+				alert('Error: ' + textStatus);
+			});
         }
     });
 
@@ -317,9 +317,9 @@ td.table-link {
             method: 'PUT',
             data: tagIds.join(','),
             contentType: 'text/plain',
-        }).fail(function() {
+        }).fail(function(jqXHR, textStatus) {
 
-            alert('Error!');
+            alert('Error: ' + textStatus);
         });
     }
 
