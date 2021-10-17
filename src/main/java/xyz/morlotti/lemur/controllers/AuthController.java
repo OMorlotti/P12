@@ -47,6 +47,8 @@ public class AuthController
 
 		model.addAttribute("year", year);
 
+		model.addAttribute("hide", true);
+
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		return new ModelAndView("sign-in");

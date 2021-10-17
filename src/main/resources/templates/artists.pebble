@@ -230,24 +230,6 @@ tr.shown td.details-control {
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
-    $('#FCE61AFD_012B_2816_B9FD_C737908FAF72').click(() => { // Import artist
-
-            $.ajax({
-                url: '/api/artists/import',
-                method: 'GET',
-            }).done(function() {
-
-                table.ajax.reload();
-                alert('Success!');
-
-            }).fail(function(jqXHR, textStatus) {
-
-                alert(Error: ' + textStatus);
-            });
-    });
-
-    /*----------------------------------------------------------------------------------------------------------------*/
-
     $('#C8355504_B5A7_166C_C130_117F8FE0AB90').click(() => { //new artist
 
         $('#artistForm')[0].reset();
