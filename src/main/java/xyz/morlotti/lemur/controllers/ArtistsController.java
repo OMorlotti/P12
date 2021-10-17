@@ -3,6 +3,8 @@ package xyz.morlotti.lemur.controllers;
 import org.springframework.ui.Model;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
+
+import java.util.stream.Collectors;
 
 @Controller
 public class ArtistsController
@@ -45,24 +49,36 @@ public class ArtistsController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artists", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateArtists(@ModelAttribute("artist") Artist artist, Model model)
+	public String addUpdateArtists(@ModelAttribute("artist") Artist artist, BindingResult result, Model model)
 	{
-		try
+		if(!result.hasErrors())
 		{
-			if(artist.getId() < 0)
+			try
 			{
-				// Add
-				artistsService.addArtist(artist);
+				if(artist.getId() < 0)
+				{
+					// Add
+					artistsService.addArtist(artist);
+				}
+				else
+				{
+					// Update
+					artistsService.updateArtist(artist);
+				}
 			}
-			else
+			catch(Exception e)
 			{
-				// Update
-				artistsService.updateArtist(artist);
+				model.addAttribute("errorMessage", e.getMessage());
 			}
 		}
-		catch(Exception e)
+		else
 		{
-			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("errorMessage", result.getAllErrors().stream().map(x ->
+				String.format("%s: %s",
+					((FieldError) x).    getField     (),
+					((FieldError) x).getDefaultMessage()
+				)
+			).collect(Collectors.joining(", ")));
 		}
 
 		try

@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controller_api;
+package xyz.morlotti.lemur.controllers_api;
 
 import java.io.File;
 import java.nio.file.Files;

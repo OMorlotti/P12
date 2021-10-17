@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controller_api;
+package xyz.morlotti.lemur.controllers_api;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.service.ArtworksService;
-import xyz.morlotti.lemur.controller_api.bean.DataSource;
+import xyz.morlotti.lemur.controllers_api.bean.DataSource;
 import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 
 @RestController

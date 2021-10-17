@@ -3,6 +3,8 @@ package xyz.morlotti.lemur.controllers;
 import org.springframework.ui.Model;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import xyz.morlotti.lemur.model.bean.Artwork;
 import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
 import xyz.morlotti.lemur.service.ArtworksService;
+
+import java.util.stream.Collectors;
 
 @Controller
 public class ArtworksController
@@ -53,24 +57,36 @@ public class ArtworksController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateArtists(@ModelAttribute("artwork") Artwork artwork, Model model)
+	public String addUpdateArtists(@ModelAttribute("artwork") Artwork artwork, BindingResult result, Model model)
 	{
-		try
+		if(!result.hasErrors())
 		{
-			if(artwork.getId() < 0)
+			try
 			{
-				// Add
-				artworksService.addArtwork(artwork);
+				if(artwork.getId() < 0)
+				{
+					// Add
+					artworksService.addArtwork(artwork);
+				}
+				else
+				{
+					// Update
+					artworksService.updateArtwork(artwork);
+				}
 			}
-			else
+			catch(Exception e)
 			{
-				// Update
-				artworksService.updateArtwork(artwork);
+				model.addAttribute("errorMessage", e.getMessage());
 			}
 		}
-		catch(Exception e)
+		else
 		{
-			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("errorMessage", result.getAllErrors().stream().map(x ->
+				String.format("%s: %s",
+					((FieldError) x).    getField     (),
+					((FieldError) x).getDefaultMessage()
+				)
+			).collect(Collectors.joining(", ")));
 		}
 
 		try

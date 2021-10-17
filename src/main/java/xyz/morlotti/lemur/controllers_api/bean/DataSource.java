@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controller_api.bean;
+package xyz.morlotti.lemur.controllers_api.bean;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class DataSource<T>
+public class DataSource<T> // For using AJAX with datatables (see: https://datatables.net/)
 {
 	private List<T> data;
 }

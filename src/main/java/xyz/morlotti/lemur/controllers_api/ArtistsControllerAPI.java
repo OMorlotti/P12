@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controller_api;
+package xyz.morlotti.lemur.controllers_api;
 
 import java.util.List;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.service.ArtistsService;
-import xyz.morlotti.lemur.controller_api.bean.DataSource;
+import xyz.morlotti.lemur.controllers_api.bean.DataSource;
 
 @RestController
 public class ArtistsControllerAPI
