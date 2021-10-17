@@ -1,0 +1,33 @@
+{% extends "base" %}
+
+{# ------------------------------------------------------------------------------------------------------------------ #}
+
+{% block title %}Authenfication{% endblock %}
+
+{# ------------------------------------------------------------------------------------------------------------------ #}
+
+{% block content %}
+<div class="text-center p-4">
+
+    <form class="text-center mx-auto w-50" action="/sign-in" method="POST" modelAttribute="credentials">
+
+    	<img class="mb-3" src="/static/logo.jpg" alt="" height="150" />
+
+    	<div class="mb-3">
+    		<label for="username" class="visually-hidden">{{ _('Username') }}</label>
+    		<input class="form-control"   type="text"   name="username" id="username" placeholder="{{ _('Username') }}" required="required" autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+
+    		<label for="password" class="visually-hidden">{{ _('Password') }}</label>
+    		<input class="form-control" type="password" name="password" id="password" placeholder="{{ _('Password') }}" required="required" xxxxxxxxx="xxxxxxxxx" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    	</div>
+
+    	<button class="btn btn-lg btn-dark w-100 mb-3" type="submit">{{ _('Log in') }}</button>
+
+    	<p class="text-muted mb-3">&copy; 2020–{{ year }}</p>
+
+    </form>
+
+</div>
+{% endblock %}
+
+{# ------------------------------------------------------------------------------------------------------------------ #}

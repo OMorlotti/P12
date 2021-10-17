@@ -40,21 +40,9 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-				    {% if userInfo is null %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{ href('/login') }}">M'authentifier</a>
+						<a class="nav-link" href="{{ href('/sign-out') }}">Quitter</a>
                     </li>
-                    {% else %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                            😷 {{ userInfo.login }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ href('/user') }}">Espace personnel</a>
-                            <a class="dropdown-item" href="{{ href('/logout') }}">Déconnecter</a>
-                        </div>
-                    </li>
-					{% endif %}
                 </ul>
             </div>
         </nav>
