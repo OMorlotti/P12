@@ -36,12 +36,12 @@
                         <a class="nav-link" href="{{ href('/artworks') }}"><i class="bi bi-easel"></i> Base d'œuvres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ href('/documents') }}"><i class="bi bi-file-earmark"></i> Base de documents</a>
+                        <a class="nav-link" href="{{ href('/documents') }}"><i class="bi bi-files-alt"></i> Base de documents</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ href('/sign-out') }}">Quitter</a>
+						<a class="nav-link" href="{{ href('/sign-out') }}"><i class="bi bi-box-arrow-right"></i> Quitter</a>
                     </li>
                 </ul>
             </div>
