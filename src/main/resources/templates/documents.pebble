@@ -74,22 +74,6 @@
 										</a>
 
 										<!-- *********************************************************************** -->
-										<div class="dropdown-divider"></div>
-										<!-- *********************************************************************** -->
-
-										<a class="dropdown-item disabled" href="#" id="CF1E8245_E843_69F7_3C48_2EA75D58EC6C">
-											<i class="bi bi-file-earmark-word"></i> {{ _('Document') }}
-										</a>
-
-										<a class="dropdown-item disabled" href="#" id="A0E3EA5F_8240_624A_F18A_77D2E7844728">
-											<i class="bi bi-file-earmark-excel"></i> {{ _('Spreadsheet') }}
-										</a>
-
-										<a class="dropdown-item disabled" href="#" id="F9B95668_AEB0_7AEC_615B_F8D78A5F04C8">
-											<i class="bi bi-file-earmark-ppt"></i> {{ _('Presentation') }}
-										</a>
-
-										<!-- *********************************************************************** -->
 									</div>
 								</div>
 							</ol>
@@ -131,17 +115,67 @@
 
 $('#ABF4E6BC_CA73_C973_83B9_5EFFAD0D071E').click(() => {
 
-    const newFolder = prompt('Nom du nouveau dossier:', '');
+	const newFolder = prompt('Nom du nouveau dossier:', '');
 
-    if(newFolder)
-    {
-        location.reload();
-    }
+	if(newFolder)
+	{
+		$.ajax({
+			url: '/documents/folder',
+			method: 'POST',
+			data: JSON.stringify({
+				path: '{{ currentPath|escape|default('/') }}',
+				name: newFolder,
+			}),
+			contentType: 'application/json; charset=UTF-8',
+		}).fail(function(jqXHR, textStatus) {
+
+			alert('Error: ' + (jqXHR.responseText || textStatus));
+
+		}).done(function() {
+
+			location.reload();
+		});
+	}
 });
 
 $('#C08836A8_C976_D3A2_9D62_3F53237A3872').click(() => {
 
     $('#fileInput').click();
+});
+
+$('#fileInput').change(() => {
+
+	const firstFile = $('#fileInput')[0].files[0];
+
+	const reader = new FileReader();
+
+	reader.readAsDataURL(firstFile);
+
+	reader.onload = function() {
+
+		$.ajax({
+			url: '/documents/file',
+			method: 'POST',
+			data: JSON.stringify({
+				path: '{{ currentPath|escape|default('/') }}',
+				name: firstFile.name,
+				base64: reader.result.substring(37),
+			}),
+			contentType: 'application/json; charset=UTF-8',
+		}).fail(function(jqXHR, textStatus) {
+
+			alert('Error: ' + (jqXHR.responseText || textStatus));
+
+		}).done(function() {
+
+			location.reload();
+		});
+	};
+
+	reader.onerror = function(error) {
+
+		alert('Error: ', error);
+   };
 });
 
 $('[data-op="rename"]').click((event) => {

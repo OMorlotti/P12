@@ -22,6 +22,6 @@ public class GitHubUpdate
 
 	public void setDecodedContent(byte[] data) throws Exception
 	{
-		content = Base64.getMimeEncoder().encodeToString(data);
+		content = Base64.getEncoder().encodeToString(data);
 	}
 }

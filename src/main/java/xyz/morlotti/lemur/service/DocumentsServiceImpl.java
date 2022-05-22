@@ -184,6 +184,30 @@ public class DocumentsServiceImpl implements DocumentsService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	@Override
+	public void addFolder(String path, String name)
+	{
+		gitHub.addFolder(path, name);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public void addFile(String path, String name, byte[] content)
+	{
+		gitHub.addFile(path, name, content);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public void updateFile(String path, String name, String hash, byte[] content)
+	{
+		gitHub.updateFile(path, name, hash, content);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	private long updateSizes(TreeItem item)
 	{
 		long result = 0;

@@ -10,4 +10,10 @@ public interface DocumentsService
 	Map<String, TreeItem> getTree(String commitId);
 
 	GitHubContent getContent(String path);
+
+	void addFolder(String path, String name);
+
+	void addFile(String path, String name, byte[] content);
+
+	void updateFile(String path, String name, String hash, byte[] content);
 }
