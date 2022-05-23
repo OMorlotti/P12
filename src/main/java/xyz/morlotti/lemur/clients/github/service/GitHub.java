@@ -38,4 +38,12 @@ public interface GitHub
 	void updateFile(String path, String name, String sha, byte[] content);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
+
+	void renameFile(String path, String oldName, String newName, String hash);
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	void deleteFile(String path, String name, String hash);
+
+	/*----------------------------------------------------------------------------------------------------------------*/
 }

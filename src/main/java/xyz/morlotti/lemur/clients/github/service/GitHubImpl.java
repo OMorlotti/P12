@@ -18,6 +18,11 @@ public class GitHubImpl implements GitHub
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	@Value("${github.repo}")
+	String gitRepo;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	@Value("${github.commit_id:master}")
 	String gitCommitId;
 
@@ -86,8 +91,6 @@ public class GitHubImpl implements GitHub
 	@Override
 	public void updateFile(String path, String name, String sha, byte[] content)
 	{
-		System.out.println("-> " + path + "/" + name + ", sha:" + sha);
-
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		while(path.startsWith("/"))
@@ -101,6 +104,8 @@ public class GitHubImpl implements GitHub
 
 		try
 		{
+			update.setOwner("bot");
+
 			update.setMessage("updating `" + path + "/" + name + "`");
 
 			update.setDecodedContent(content);
@@ -115,6 +120,59 @@ public class GitHubImpl implements GitHub
 		{
 			System.out.println(e.getMessage());
 		}
+
+		/*------------------------------------------------------------------------------------------------------------*/
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public void renameFile(String path, String oldName, String newName, String hash)
+	{
+		GitHubContent content = gitHubClients.getContent(path + '/' + oldName);
+
+		if(content != null)
+		{
+			try
+			{
+				addFile(path, newName, content.getDecodedContent());
+
+				deleteFile(path, oldName, hash);
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public void deleteFile(String path, String name, String hash)
+	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		while(path.startsWith("/"))
+		{
+			path = path.substring(1);
+		}
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		GitHubDelete delete = new GitHubDelete();
+
+		delete.setOwner("bot");
+
+		delete.setRepo(gitRepo);
+
+		delete.setPath(path + "/" + name);
+
+		delete.setMessage("deleting `" + path + "/" + name + "`");
+
+		delete.setSha(hash);
+
+		gitHubClients.deleteFile(path + "/" + name, delete);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 	}

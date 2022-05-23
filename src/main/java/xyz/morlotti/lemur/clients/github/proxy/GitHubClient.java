@@ -45,24 +45,18 @@ public interface GitHubClient
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
-	void renameFile(
-		@PathVariable(value = "path") String path
+	@RequestMapping(method = RequestMethod.PUT, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
+	void updateFile(
+		@PathVariable(value = "path") String path,
+		@RequestBody GitHubUpdate update
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	void deleteFile(
-		@PathVariable(value = "path") String path
-	);
-
-	/*----------------------------------------------------------------------------------------------------------------*/
-
-	@RequestMapping(method = RequestMethod.PUT, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
-	void updateFile(
 		@PathVariable(value = "path") String path,
-		@RequestBody GitHubUpdate update
+		@RequestBody GitHubDelete delete
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/

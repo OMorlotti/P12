@@ -182,13 +182,29 @@ $('[data-op="rename"]').click((event) => {
 
     const el = $(event.currentTarget);
 
-    const oldPath = el.attr('data-path');
+    const oldName = el.attr('data-name');
 
-    const newPath = prompt('Nouveau nom de fichier:', oldPath);
+    const newName = prompt('Nouveau nom de fichier:', oldName);
 
-    if(newPath)
+    if(newName)
     {
-        location.reload();
+		$.ajax({
+			url: '/documents/rename/file',
+			method: 'POST',
+			data: JSON.stringify({
+				path: '{{ currentPath|escape|default('/') }}',
+				oldName: oldName,
+				newName: newName
+			}),
+			contentType: 'application/json; charset=UTF-8',
+		}).fail(function(jqXHR, textStatus) {
+
+			alert('Error: ' + (jqXHR.responseText || textStatus));
+
+		}).done(function() {
+
+			location.reload();
+		});
     }
 });
 
@@ -196,13 +212,28 @@ $('[data-op="delete"]').click((event) => {
 
     const el = $(event.currentTarget);
 
-    const path = el.attr('data-path');
+    const name = el.attr('data-name');
 
     const okay = confirm('Confirmez la suppression du fichier:');
 
     if(okay)
     {
-        location.reload();
+		$.ajax({
+			url: '/documents/file',
+			method: 'DELETE',
+			data: JSON.stringify({
+				path: '{{ currentPath|escape|default('/') }}',
+				name: name,
+			}),
+			contentType: 'application/json; charset=UTF-8',
+		}).fail(function(jqXHR, textStatus) {
+
+			alert('Error: ' + (jqXHR.responseText || textStatus));
+
+		}).done(function() {
+
+			location.reload();
+		});
     }
 });
 

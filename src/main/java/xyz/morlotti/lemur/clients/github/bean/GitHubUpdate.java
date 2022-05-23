@@ -12,6 +12,8 @@ import java.util.Base64;
 @ToString
 public class GitHubUpdate
 {
+	private String owner;
+
 	private String message;
 
 	private String content;

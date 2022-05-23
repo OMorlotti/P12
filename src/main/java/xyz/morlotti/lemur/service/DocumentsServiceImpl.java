@@ -208,6 +208,22 @@ public class DocumentsServiceImpl implements DocumentsService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	@Override
+	public void renameFile(String path, String oldName, String newName, String hash)
+	{
+		gitHub.renameFile(path, oldName, newName, hash);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Override
+	public void deleteFile(String path, String name, String hash)
+	{
+		gitHub.deleteFile(path, name, hash);
+	}
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
 	private long updateSizes(TreeItem item)
 	{
 		long result = 0;

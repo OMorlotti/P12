@@ -25,12 +25,20 @@
     {% endif %}
     </td>
     <td style="width: 48px;">
-        <button class="badge badge-pill badge-primary border" type="button" data-op="rename" data-path="{{ item.path|escape }}">
+	    {% if type == 'file' %}
+        <button class="badge badge-pill badge-primary border" type="button" data-op="rename" data-name="{{ item.name|escape }}" xxxxxxxx="xxxxxxxx">
+		{% else %}
+        <button class="badge badge-pill badge-secondary border" type="button" data-op="xxxxxx" data-name="{{ item.name|escape }}" disabled="disabled">
+		{% endif %}
             <i class="bi bi-pen"></i>
         </button>
     </td>
     <td style="width: 48px;">
-        <button class="badge badge-pill badge-danger border" type="button" data-op="delete" data-path="{{ item.path|escape }}">
+	    {% if type == 'file' %}
+        <button class="badge badge-pill badge-danger border" type="button" data-op="delete" data-name="{{ item.name|escape }}" xxxxxxxx="xxxxxxxx">
+		{% else %}
+		  <button class="badge badge-pill badge-secondary border" type="button" data-op="xxxxxx" data-name="{{ item.name|escape }}" disabled="disabled">
+		{% endif %}
             <i class="bi bi-trash"></i>
         </button>
     </td>
