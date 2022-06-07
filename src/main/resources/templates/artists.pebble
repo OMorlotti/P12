@@ -123,15 +123,26 @@ tr.shown td.details-control {
     function format(d)
     {
         setTimeout(function() {
-
+/*
+            $.ajax({
+                url: '/api/artists',
+                method: 'GET',
+            }).done(function(artists) {
+            	alert(JSON.stringify(artists, null, 2));
+            });
+*/
             $.ajax({
                 url: '/api/artists/' + d.id + '/tags',
                 method: 'GET',
             }).done(function(tags) {
 
+				const metadata = [];
+
                 for(const tag of tags)
                 {
                     $(`#select2_${d.id} option[value="${tag.id}"]`).prop('selected', true);
+
+                    metadata.push(tag.name);
                 }
 
                 $(`#select2_${d.id}`).removeClass('d-none').select2();

@@ -49,13 +49,13 @@ public class DocumentsServiceImpl implements DocumentsService
 
 		for(GitHubTreeItem xx: tree.getTree())
 		{
-			if("tree".equals(xx.getType()))
+			if("tree".equals(xx.getType())) // tree = folder
 			{
 				TreeItem curFolder = rootFolder;
 
 				List<String> currentPathList = new ArrayList<>();
 
-				String[] subFolderNames = xx.getPath().split("/", -1);
+				String[] subFolderNames = xx.getPath().split("/", -1); // si la chaine coupée est vide : retourne un array vide (-1)
 
 				for(String subFolderName: subFolderNames)
 				{
@@ -109,13 +109,13 @@ public class DocumentsServiceImpl implements DocumentsService
 
 		for(GitHubTreeItem xx: tree.getTree())
 		{
-			if("blob".equals(xx.getType()))
+			if("blob".equals(xx.getType())) // blob = file
 			{
 				TreeItem curFolder = rootFolder;
 
 				List<String> currentPathList = new ArrayList<>();
 
-				String[] subFileNames = xx.getPath().split("/", -1);
+				String[] subFileNames = xx.getPath().split("/", -1); // si la chaine coupée est vide : retourne un array vide (-1)
 
 				for(String subFileName: subFileNames)
 				{
@@ -224,7 +224,7 @@ public class DocumentsServiceImpl implements DocumentsService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	private long updateSizes(TreeItem item)
+	private long updateSizes(TreeItem item) // méthode récursive pour calculer les tailles des dossiers à partir de la taille de tous les éléments contenus
 	{
 		long result = 0;
 
