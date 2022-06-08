@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import xyz.morlotti.lemur.model.bean.Tag;
 import xyz.morlotti.lemur.model.bean.Artist;
@@ -15,6 +16,7 @@ import xyz.morlotti.lemur.model.repositories.ArtistRepository;
 import xyz.morlotti.lemur.model.repositories.ArtistTagRepository;
 
 @Service
+@Transactional
 public class ArtistsServiceImpl implements ArtistsService
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
@@ -103,7 +105,7 @@ public class ArtistsServiceImpl implements ArtistsService
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<Tag> getTagsById(int id)
+	public List<Tag> getTagsByArtistId(int id)
 	{
 		return artistTagRepository.findTagsByArtistId(id);
 	}
@@ -111,21 +113,27 @@ public class ArtistsServiceImpl implements ArtistsService
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void setTagsById(int id, List<String> ids)
+	public void setTagsForArtistId(int artistId, List<String> tagIds)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Artist artist = artistRepository.findById(id).orElseThrow(() -> new RuntimeException("Artist `" + id + "` not found"));
-
-		Map<Integer, Tag> map = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
-
-		List<Tag> tags = artistTagRepository.findTagsByArtistId(id);
+		Artist artist = artistRepository.findById(artistId).orElseThrow(() -> new RuntimeException("Artist `" + artistId + "` not found"));
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Set<Integer> existingTags = tags.stream().map(x -> /**/ x.getId() /**/).collect(Collectors.toSet());
+		// Function.identity() equals x -> x
 
-		Set<Integer> wantedTags = ids.stream().map(x -> Integer.valueOf(x)).collect(Collectors.toSet());
+		Map<Integer, ArtistTag> tagIdToArtistTag = artistTagRepository.findArtistTagByArtistId(artistId).stream().collect(Collectors.toMap(x -> x.getTag().getId(), Function.identity()));
+
+		Map<Integer, Tag> tadIdToTag = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
+
+		List<Tag> tags = artistTagRepository.findTagsByArtistId(artistId);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		Set<Integer> existingTags = tags.stream().map(Tag::getId).collect(Collectors.toSet());
+
+		Set<Integer> wantedTags = tagIds.stream().map(Integer::valueOf).collect(Collectors.toSet());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -137,11 +145,19 @@ public class ArtistsServiceImpl implements ArtistsService
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		List<ArtistTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtistTag(null, artist, map.get(x), null)).collect(Collectors.toList());
+		List<ArtistTag> toBeRemovedList = toBeRemovedSet.stream().map(tagIdToArtistTag::get).collect(Collectors.toList());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		artistTagRepository.deleteAllById(toBeRemovedSet);
+		List<ArtistTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtistTag(null, artist, tadIdToTag.get(x), null)).collect(Collectors.toList());
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		System.out.println("Remove: " + toBeRemovedList);
+
+		System.out.println("Add: " + toBeAddedList);
+
+		artistTagRepository.deleteAll(toBeRemovedList);
 
 		artistTagRepository.saveAll(toBeAddedList);
 

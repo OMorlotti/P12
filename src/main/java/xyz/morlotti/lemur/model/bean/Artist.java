@@ -3,18 +3,18 @@ package xyz.morlotti.lemur.model.bean;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
-
 import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity(name = "lm_artists")
 @Table(name = "lm_artists", indexes = {
@@ -58,4 +58,14 @@ public class Artist
 	@org.hibernate.annotations.UpdateTimestamp
 	@Column(name = "modified", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDate modified;
+
+	@JsonIgnore
+	@ToString.Exclude // Pour éviter la récursion
+	@OneToMany(mappedBy = "artwork", fetch = FetchType.EAGER)
+	private Set<ArtworkTag> artistTags;
+
+	public String getTagString()
+	{
+		return artistTags.stream().map(x -> x.getTagName()).collect(Collectors.joining(" "));
+	}
 }

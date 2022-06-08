@@ -39,26 +39,29 @@ public class AuthTokenFilter extends OncePerRequestFilter
 	{
 		Cookie[] cookies = request.getCookies();
 
-		for(Cookie cookie: cookies)
+		if(cookies != null)
 		{
-			if(JwtUtils.TOKEN_COOKIE_NAME.equals(cookie.getName()))
+			for(Cookie cookie: cookies)
 			{
-				String token = cookie.getValue();
-
-				Optional<String> optional = jwtUtils.validateJwtToken(token);
-
-				if(optional.isPresent())
+				if(JwtUtils.TOKEN_COOKIE_NAME.equals(cookie.getName()))
 				{
-					UserDetails userDetails = userDetailsService.loadUserByUsername(optional.get());
+					String token = cookie.getValue();
 
-					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+					Optional<String> optional = jwtUtils.validateJwtToken(token);
 
-					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					if(optional.isPresent())
+					{
+						UserDetails userDetails = userDetailsService.loadUserByUsername(optional.get());
 
-					SecurityContextHolder.getContext().setAuthentication(authentication);
+						UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+
+						authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+						SecurityContextHolder.getContext().setAuthentication(authentication);
+					}
+
+					break;
 				}
-
-				break;
 			}
 		}
 

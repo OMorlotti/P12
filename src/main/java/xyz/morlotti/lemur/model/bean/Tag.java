@@ -8,15 +8,14 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity(name = "lm_tags")
 @Table(name = "lm_tags", indexes = {
-	@Index(name = "uniqueIndex1", columnList = "name", unique = true)
+	@Index(name = "uniqueIndex6", columnList = "name", unique = true)
 })
 public class Tag
 {

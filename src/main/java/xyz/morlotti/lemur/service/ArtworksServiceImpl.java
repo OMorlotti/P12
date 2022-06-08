@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.transaction.annotation.Transactional;
 import xyz.morlotti.lemur.clients.woocommerce.bean.Product;
 import xyz.morlotti.lemur.clients.woocommerce.service.WooCommerce;
 
@@ -18,6 +19,7 @@ import xyz.morlotti.lemur.model.repositories.ArtworkRepository;
 import xyz.morlotti.lemur.model.repositories.ArtworkTagRepository;
 
 @Service
+@Transactional
 public class ArtworksServiceImpl implements ArtworksService
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
@@ -115,21 +117,27 @@ public class ArtworksServiceImpl implements ArtworksService
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void setTagsById(int id, List<String> ids)
+	public void setTagsById(int artworkId, List<String> tagIds)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Artwork artwork = artworkRepository.findById(id).orElseThrow(() -> new RuntimeException("Artwork `" + id + "` not found"));
-
-		Map<Integer, Tag> map = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
-
-		List<Tag> tags = artworkTagRepository.findTagsByArtworkId(id);
+		Artwork artwork = artworkRepository.findById(artworkId).orElseThrow(() -> new RuntimeException("Artwork `" + artworkId + "` not found"));
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		Set<Integer> existingTags = tags.stream().map(x -> /**/ x.getId() /**/).collect(Collectors.toSet());
+		// Function.identity() equals x -> x
 
-		Set<Integer> wantedTags = ids.stream().map(x -> Integer.valueOf(x)).collect(Collectors.toSet());
+		Map<Integer, ArtworkTag> tagIdToArtistTag = artworkTagRepository.findArtworkTagByArtworkId(artworkId).stream().collect(Collectors.toMap(x -> x.getTag().getId(), Function.identity()));
+
+		Map<Integer, Tag> tadIdToTag = tagRepository.findAll().stream().collect(Collectors.toMap(Tag::getId, Function.identity()));
+
+		List<Tag> tags = artworkTagRepository.findTagsByArtworkId(artworkId);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		Set<Integer> existingTags = tags.stream().map(Tag::getId).collect(Collectors.toSet());
+
+		Set<Integer> wantedTags = tagIds.stream().map(Integer::valueOf).collect(Collectors.toSet());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -141,7 +149,11 @@ public class ArtworksServiceImpl implements ArtworksService
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		List<ArtworkTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtworkTag(null, artwork, map.get(x), null)).collect(Collectors.toList());
+		List<ArtworkTag> toBeRemovedList = toBeRemovedSet.stream().map(tagIdToArtistTag::get).collect(Collectors.toList());
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		List<ArtworkTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtworkTag(null, artwork, tadIdToTag.get(x), null)).collect(Collectors.toList());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 

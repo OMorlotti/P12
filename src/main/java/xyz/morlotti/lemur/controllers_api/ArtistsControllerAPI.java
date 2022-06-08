@@ -52,17 +52,17 @@ public class ArtistsControllerAPI
 	@RequestMapping(value = "/api/artists/{id}/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Tag> getTags(@PathVariable("id") int id)
 	{
-		return artistsService.getTagsById(id);
+		return artistsService.getTagsByArtistId(id);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artists/{id}/tags", method = RequestMethod.PUT, consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody String list)
+	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody(required = false) String list)
 	{
-		List<String> ids = Arrays.asList(list.split(","));
+		List<String> ids = Arrays.asList(list != null ? list.split(",") : new String[] {});
 
-		artistsService.setTagsById(id, ids);
+		artistsService.setTagsForArtistId(id, ids);
 
 		return ResponseEntity.status(HttpStatus.OK).body(String.valueOf(id));
 	}

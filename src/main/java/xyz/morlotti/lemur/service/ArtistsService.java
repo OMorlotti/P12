@@ -22,7 +22,7 @@ public interface ArtistsService
 
 	void deleteArtist(int id);
 
-	List<Tag> getTagsById(int id);
+	List<Tag> getTagsByArtistId(int id);
 
-	void setTagsById(int id, List<String> ids);
+	void setTagsForArtistId(int id, List<String> ids);
 }

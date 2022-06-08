@@ -59,14 +59,16 @@
         </button>
     </div>
 
-    <table class="table table-sm w-100" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom</th>
+    <div class="table-responsive">
+        <table class="table table-sm w-100" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nom</th>
                 </tr>
-        </thead>
-    </table>
+            </thead>
+        </table>
+    </div>
 
 </div>
 {% endblock %}

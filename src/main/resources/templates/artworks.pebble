@@ -94,16 +94,19 @@ td.table-link {
         </button>
     </div>
 
-    <table class="table table-sm table-striped" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Nom</th>
-                <th>Artiste</th>
-                <th>Lien Shop</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-sm table-striped" id="D522155B_5EAF_1B0E_7333_74EEF1FAE766">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Nom</th>
+                    <th>Artiste</th>
+                    <th>Lien Shop</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
 </div>
 {% endblock %}
@@ -171,6 +174,7 @@ td.table-link {
                 'data'          : null,
                 'defaultContent': '',
             },
+            { 'className': 'table-value', 'data': 'tagString', 'visible': false },
             { 'className': 'table-value', 'data': 'name' },
             { 'className': 'table-value', 'data': 'artistPseudo' },
             { 'className': 'table-link', 'data': 'wcPermalink', 'orderable': false, render: function(data, type) {

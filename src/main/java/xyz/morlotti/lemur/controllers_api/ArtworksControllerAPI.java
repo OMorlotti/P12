@@ -63,9 +63,9 @@ public class ArtworksControllerAPI
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/api/artworks/{id}/tags", method = RequestMethod.PUT, consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody String list)
+	public ResponseEntity<String> setTags(@PathVariable("id") int id, @RequestBody(required = false) String list)
 	{
-		List<String> ids = Arrays.asList(list.split(","));
+		List<String> ids = Arrays.asList(list != null ? list.split(",") : new String[] {});
 
 		artworksService.setTagsById(id, ids);
 

@@ -3,12 +3,13 @@ package xyz.morlotti.lemur.model.bean;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
 @Setter
 @Getter
 @AllArgsConstructor
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @ToString
 @Entity(name = "lm_artworks")
 @Table(name = "lm_artworks", indexes = {
-	@Index(name = "uniqueIndex1", columnList = "wc_id", unique = true)
+	@Index(name = "uniqueIndex3", columnList = "wc_id", unique = true)
 })
 public class Artwork
 {
@@ -85,4 +86,14 @@ public class Artwork
 	@org.hibernate.annotations.UpdateTimestamp
 	@Column(name = "modified", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDate modified;
+
+	@JsonIgnore
+	@ToString.Exclude // Pour éviter la récursion
+	@OneToMany(mappedBy = "artwork", fetch = FetchType.EAGER)
+	private Set<ArtworkTag> artworkTag;
+
+	public String getTagString()
+	{
+		return artworkTag.stream().map(x -> x.getTagName()).collect(Collectors.joining(" "));
+	}
 }

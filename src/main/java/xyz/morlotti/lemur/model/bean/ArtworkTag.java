@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Data
 @Setter
 @Getter
 @AllArgsConstructor
@@ -19,7 +18,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @ToString
 @Entity(name = "lm_artworktag")
 @Table(name = "lm_artworktag", indexes = {
-	@Index(name = "uniqueIndex1", columnList = "artworkFK, tagFK", unique = true)
+	@Index(name = "uniqueIndex4", columnList = "artworkFK, tagFK", unique = true)
 })
 public class ArtworkTag
 {
@@ -29,12 +28,14 @@ public class ArtworkTag
 	private Integer id;
 
 	@JsonIgnore
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "artworkFK", nullable = false)
 	private Artwork artwork;
 
 	@JsonIgnore
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "tagFK", nullable = false)
@@ -44,4 +45,16 @@ public class ArtworkTag
 	@org.hibernate.annotations.CreationTimestamp
 	@Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDate created;
+
+	@ToString.Include
+	public String getArtworkName()
+	{
+		return artwork.getName();
+	}
+
+	@ToString.Include
+	public String getTagName()
+	{
+		return tag.getName();
+	}
 }
