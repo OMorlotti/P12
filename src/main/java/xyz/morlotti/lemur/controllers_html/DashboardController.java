@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controllers;
+package xyz.morlotti.lemur.controllers_html;
 
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;

@@ -1,58 +1,55 @@
-package xyz.morlotti.lemur.controllers;
+package xyz.morlotti.lemur.controllers_html;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import xyz.morlotti.lemur.model.bean.Tag;
-import xyz.morlotti.lemur.service.TagsService;
+import org.springframework.web.bind.annotation.RequestMethod;
+import xyz.morlotti.lemur.service.ConfigService;
 
 import javax.validation.Valid;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-public class TagsController
+public class ConfigController
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Autowired
-	TagsService tagsService;
+	ConfigService configService;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/tags", method = RequestMethod.GET)
-	public String tags()
+	@RequestMapping(value = "/config", method = RequestMethod.GET)
+	public String config(Model model)
 	{
-		return "tags";
+		try
+		{
+			model.addAttribute("config", configService.getConfig());
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", e.getMessage());
+		}
+
+		return "config";
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/tags", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateTag(@Valid @ModelAttribute("tag") Tag tag, BindingResult result, Model model)
+	@RequestMapping(value = "/config", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String addUpdateConfig(@Valid @ModelAttribute("config") Map<String, String> config, BindingResult result, Model model) // BindingResult = test erreur remplissage du bean
 	{
 		if(!result.hasErrors())
 		{
 			try
 			{
-				if(tag.getId() < 0)
-				{
-					// Add
-					tagsService.addTag(tag);
-				}
-				else
-				{
-					// Update
-					tagsService.updateTag(tag);
-				}
+				configService.setConfig(config);
 			}
 			catch(Exception e)
 			{
@@ -69,7 +66,16 @@ public class TagsController
 			).collect(Collectors.joining(", ")));
 		}
 
-		return "tags";
+		try
+		{
+			model.addAttribute("config", configService.getConfig());
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", e.getMessage());
+		}
+
+		return "config";
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controllers;
+package xyz.morlotti.lemur.controllers_html;
 
 import org.springframework.ui.Model;
 import org.springframework.http.MediaType;
@@ -58,7 +58,7 @@ public class ArtworksController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/artworks", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateArtists(@Valid @ModelAttribute("artwork") Artwork artwork, BindingResult result, Model model)
+	public String addUpdateArtists(@Valid @ModelAttribute("artwork") Artwork artwork, BindingResult result, Model model) // BindingResult = test erreur remplissage du bean
 	{
 		if(!result.hasErrors())
 		{

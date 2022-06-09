@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controllers;
+package xyz.morlotti.lemur.controllers_html;
 
 import java.util.Calendar;
 
@@ -19,7 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import xyz.morlotti.lemur.security.jwt.JwtUtils;
-import xyz.morlotti.lemur.controllers.bean.Credentials;
+import xyz.morlotti.lemur.controllers_html.bean.Credentials;
 
 @Controller
 public class AuthController

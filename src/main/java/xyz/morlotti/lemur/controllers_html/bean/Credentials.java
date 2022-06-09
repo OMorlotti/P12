@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controllers.bean;
+package xyz.morlotti.lemur.controllers_html.bean;
 
 import lombok.*;
 

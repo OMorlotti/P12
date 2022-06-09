@@ -1,4 +1,4 @@
-package xyz.morlotti.lemur.controllers;
+package xyz.morlotti.lemur.controllers_html;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;

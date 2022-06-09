@@ -29,11 +29,6 @@ public class Config
 	String val;
 
 	@JsonIgnore
-	@org.hibernate.annotations.CreationTimestamp
-	@Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDate created;
-
-	@JsonIgnore
 	@org.hibernate.annotations.UpdateTimestamp
 	@Column(name = "modified", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDate modified;
