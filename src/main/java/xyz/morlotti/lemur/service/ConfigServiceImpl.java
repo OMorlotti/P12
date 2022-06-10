@@ -1,17 +1,15 @@
 package xyz.morlotti.lemur.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import xyz.morlotti.lemur.model.bean.Config;
-import xyz.morlotti.lemur.model.repositories.ConfigRepository;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import xyz.morlotti.lemur.model.bean.Config;
+import xyz.morlotti.lemur.model.repositories.ConfigRepository;
 
 @Service
-@Transactional
 public class ConfigServiceImpl implements ConfigService
 {
 	/*----------------------------------------------------------------------------------------------------------------*/

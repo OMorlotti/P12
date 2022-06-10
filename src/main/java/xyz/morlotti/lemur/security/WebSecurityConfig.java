@@ -50,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	{
 		http.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers(HttpMethod.GET, "/sign-in", "/sign-out", "/static/**").permitAll()
-			                    .antMatchers(HttpMethod.POST, "/sign-in", "/sign-out", "/static/**").permitAll()
+			.authorizeRequests().antMatchers(HttpMethod.GET, "/sign-in", "/sign-out", "/remind", "/static/**").permitAll()
+			                    .antMatchers(HttpMethod.POST, "/sign-in", "/sign-out", "/remind", "/static/**").permitAll()
 			                    .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
 			.anyRequest().authenticated()
 		    .and()

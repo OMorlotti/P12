@@ -16,7 +16,6 @@ tr.shown td.details-control {
     background: url('https://icons.getbootstrap.com/assets/icons/dash-circle.svg') no-repeat center center;
 }
 </style>
-
 {% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------ #}

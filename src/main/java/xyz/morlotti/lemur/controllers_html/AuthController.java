@@ -1,5 +1,6 @@
 package xyz.morlotti.lemur.controllers_html;
 
+import java.util.Map;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import xyz.morlotti.lemur.EmailSender;
+import xyz.morlotti.lemur.service.ConfigService;
 import xyz.morlotti.lemur.security.jwt.JwtUtils;
 import xyz.morlotti.lemur.controllers_html.bean.Credentials;
 
@@ -33,6 +36,54 @@ public class AuthController
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Autowired
+	private ConfigService configService;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@Autowired
+	private EmailSender emailSender;
+
+	/*----------------------------------------------------------------------------------------------------------------*/
+
+	@RequestMapping(value = "/remind", method = RequestMethod.GET)
+	public ModelAndView remind(ModelMap model)
+	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		Map<String, String> config = configService.getConfig();
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		try
+		{
+			if(config.containsKey("email"))
+			{
+				String email = config.get("email");
+
+				emailSender.sendMessage(email, email, "", "Mot de passe \"Le Mur Grenoble\"", "Bonjour,\n\nVotre mot de passe \"Le Mur\" est: " + config.getOrDefault("password", "N/A") + "\n\nBien cordialement\nLe Mur Grenoble");
+
+				model.addAttribute("successMessage", "Un email vient d'être envoyé");
+			}
+			else
+			{
+				model.addAttribute("errorMessage", "Aucun e-mail n'a été configuré");
+			}
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("errorMessage", "Erreur d'envoi du message: " + e.getMessage());
+		}
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		return signIn1(model);
+
+		/*------------------------------------------------------------------------------------------------------------*/
+	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 

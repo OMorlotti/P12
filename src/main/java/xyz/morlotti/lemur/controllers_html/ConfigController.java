@@ -1,19 +1,18 @@
 package xyz.morlotti.lemur.controllers_html;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import xyz.morlotti.lemur.service.ConfigService;
-
-import javax.validation.Valid;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import xyz.morlotti.lemur.service.ConfigService;
 
 @Controller
 public class ConfigController
@@ -43,27 +42,19 @@ public class ConfigController
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@RequestMapping(value = "/config", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String addUpdateConfig(@Valid @ModelAttribute("config") Map<String, String> config, BindingResult result, Model model) // BindingResult = test erreur remplissage du bean
+	public String addUpdateConfig(@RequestBody MultiValueMap<String, String> formData, Model model)
 	{
-		if(!result.hasErrors())
+		Map<String, String> config = formData.entrySet().stream().filter(x -> x.getValue().size() > 0)
+		                                                         .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().get(0)))
+		;
+
+		try
 		{
-			try
-			{
-				configService.setConfig(config);
-			}
-			catch(Exception e)
-			{
-				model.addAttribute("errorMessage", e.getMessage());
-			}
+			configService.setConfig(config);
 		}
-		else
+		catch(Exception e)
 		{
-			model.addAttribute("errorMessage", result.getAllErrors().stream().map(x ->
-				String.format("%s: %s",
-					((FieldError) x).    getField     (),
-					((FieldError) x).getDefaultMessage()
-				)
-			).collect(Collectors.joining(", ")));
+			model.addAttribute("errorMessage", e.getMessage());
 		}
 
 		try
