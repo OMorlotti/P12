@@ -1,5 +1,7 @@
 package xyz.morlotti.lemur.controllers_html;
 
+import java.util.Map;
+
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import xyz.morlotti.lemur.service.ConfigService;
 import xyz.morlotti.lemur.service.bean.TreeItem;
 import xyz.morlotti.lemur.service.DocumentsService;
-
-import java.util.Map;
 
 @Controller
 public class DocumentsController

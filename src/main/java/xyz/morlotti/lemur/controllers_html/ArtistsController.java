@@ -1,10 +1,14 @@
 package xyz.morlotti.lemur.controllers_html;
 
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.ui.Model;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +18,7 @@ import xyz.morlotti.lemur.model.bean.Artist;
 import xyz.morlotti.lemur.service.TagsService;
 import xyz.morlotti.lemur.service.ArtistsService;
 
-import javax.validation.Valid;
-import java.util.stream.Collectors;
+
 
 @Controller
 public class ArtistsController

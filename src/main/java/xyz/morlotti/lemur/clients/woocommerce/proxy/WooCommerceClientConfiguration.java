@@ -1,7 +1,7 @@
 package xyz.morlotti.lemur.clients.woocommerce.proxy;
 
-import java.util.Base64;
 import java.util.Map;
+import java.util.Base64;
 import java.util.Random;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

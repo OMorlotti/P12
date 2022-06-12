@@ -1,7 +1,7 @@
 package xyz.morlotti.lemur.controllers_api;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +26,7 @@ public class TagsControllerAPI
 	@RequestMapping(value = "/api/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public DataSource<Tag> tags()
 	{
-		return new DataSource<Tag>(tagsService.getTags());
+		return new DataSource<>(tagsService.getTags());
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
