@@ -15,7 +15,7 @@
         <relativePath />
     </parent>
 
-    <artifactId>TestWCAPI</artifactId>
+    <artifactId>LeMur</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
