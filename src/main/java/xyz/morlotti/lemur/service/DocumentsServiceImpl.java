@@ -29,13 +29,17 @@ public class DocumentsServiceImpl implements DocumentsService
 	{
 		int currentId = 1;
 
+		// Map à plat de clefs 'le path complet du dossier ou fichier' et de valeurs 'le dossier ou le fichier de type TreeItem'
+
 		Map<String, TreeItem> dict = new HashMap<>();
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		GitHubTree tree = gitHub.fileTree(login, repo, branch);
+		GitHubTree tree = gitHub.fileTree(login, repo, branch); // arbre à plat (= list simple d'objets GitHubTreeItem) de dossiers et fichier délivré par GitHub
 
 		/*------------------------------------------------------------------------------------------------------------*/
+
+		// Dossier racine de l'arbre final de dossiers et fichier
 
 		TreeItem rootFolder = new TreeItem(currentId, TreeItem.Type.FOLDER, "", "", 0, "/", "/");
 
@@ -47,21 +51,29 @@ public class DocumentsServiceImpl implements DocumentsService
 		/* COMPUTE FOLDER TREE                                                                                        */
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		for(GitHubTreeItem xx: tree.getTree())
+		for(GitHubTreeItem xx: tree.getTree()) // On itère sur l'arbre à plat délivré par GitHub
 		{
-			if("tree".equals(xx.getType())) // tree = folder
+			if("tree".equals(xx.getType())) // On ne garde que les dossiers (tree = folder)
 			{
+				// Pour chaque dossier, on commence par initialiser le dossier courant au dossier racine
+
 				TreeItem curFolder = rootFolder;
 
-				List<String> currentPathList = new ArrayList<>();
+				// On découpe le path du dossier (au niveau des /) en sous éléments de paths
 
 				String[] subFolderNames = xx.getPath().split("/", -1); // si la chaine coupée est vide : retourne un array vide (-1)
 
-				for(String subFolderName: subFolderNames)
+				// On créé une liste contenant tous les sous éléments de path jusqu'au niveau en cours dans l'itération qui suit
+
+				List<String> currentPathList = new ArrayList<>();
+
+				for(String subFolderName: subFolderNames) // par exemple [folder1, folder2, ..., folderN]
 				{
 					/*------------------------------------------------------------------------------------------------*/
 					/* CONCATENATE SUB FOLDERS                                                                        */
 					/*------------------------------------------------------------------------------------------------*/
+
+					// on ajoute le sous éléments de path courant dans currentPathList
 
 					currentPathList.add(subFolderName);
 
@@ -69,7 +81,11 @@ public class DocumentsServiceImpl implements DocumentsService
 					/* CREATE THE FOLDER ENTRY IF NOT EXISTS                                                          */
 					/*------------------------------------------------------------------------------------------------*/
 
+					// Au sous éléments de path courant on regarde si l'élément courant existe dans l'arbre de dossier
+
 					TreeItem newFolder = curFolder.getFolders().get(subFolderName);
+
+					// S'il n'existe pas, il est créé
 
 					if(newFolder == null)
 					{
@@ -85,7 +101,11 @@ public class DocumentsServiceImpl implements DocumentsService
 							subFolderName
 						);
 
+						// On ajoute le nouveau dossier dans le dossier courant
+
 						curFolder.getFolders().put(subFolderName, newFolder);
+
+						//  on enregistre le nouveau dossier dans la map à plat des paths complets et TreeItems
 
 						dict.put(currentPath, newFolder);
 
@@ -95,6 +115,8 @@ public class DocumentsServiceImpl implements DocumentsService
 					/*------------------------------------------------------------------------------------------------*/
 					/* SET THE NEW FOLDER AS THE CURRENT FOLDER                                                       */
 					/*------------------------------------------------------------------------------------------------*/
+
+					// Le dossier en cours deviendra le dossier courant à l'itération suivante
 
 					curFolder = newFolder;
 
@@ -107,21 +129,29 @@ public class DocumentsServiceImpl implements DocumentsService
 		/* COMPUTE FILE TREE                                                                                          */
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		for(GitHubTreeItem xx: tree.getTree())
+		for(GitHubTreeItem xx: tree.getTree()) // On itère sur l'arbre à plat délivré par GitHub
 		{
-			if("blob".equals(xx.getType())) // blob = file
+			if("blob".equals(xx.getType())) // On ne garde que les fichiers (blob = file)
 			{
+				// Pour chaque dossier, on commence par initialiser le dossier courant au dossier racine
+
 				TreeItem curFolder = rootFolder;
 
-				List<String> currentPathList = new ArrayList<>();
+				// On découpe le path du fichiers (au niveau des /) en sous éléments de paths
 
 				String[] subFileNames = xx.getPath().split("/", -1); // si la chaine coupée est vide : retourne un array vide (-1)
 
-				for(String subFileName: subFileNames)
+				// On créé une liste contenant tous les sous éléments de path jusqu'au niveau en cours dans l'itération qui suit
+
+				List<String> currentPathList = new ArrayList<>();
+
+				for(String subFileName: subFileNames) // par exemple [folder1, folder2, ..., filename]
 				{
 					/*------------------------------------------------------------------------------------------------*/
 					/* CONCATENATE SUB FILES                                                                          */
 					/*------------------------------------------------------------------------------------------------*/
+
+					// on ajoute le sous éléments de path courant dans currentPathList
 
 					currentPathList.add(subFileName);
 
@@ -129,7 +159,11 @@ public class DocumentsServiceImpl implements DocumentsService
 					/* CREATE THE FILE ENTRY IF NOT EXISTS                                                            */
 					/*------------------------------------------------------------------------------------------------*/
 
+					// Au sous éléments de path courant on regarde si l'élément courant existe dans l'arbre de dossier
+
 					TreeItem newFolder = curFolder.getFolders().get(subFileName);
+
+					// S'il n'existe pas, il est créé
 
 					if(newFolder == null)
 					{
@@ -145,7 +179,11 @@ public class DocumentsServiceImpl implements DocumentsService
 							subFileName
 						);
 
+						// On ajoute le nouveau fichier dans le dossier courant
+
 						curFolder.getFiles().put(subFileName, newFile);
+
+						//  on enregistre le nouveau fichier dans la map à plat des paths complets et TreeItems
 
 						dict.put(currentPath, newFile);
 
@@ -155,6 +193,8 @@ public class DocumentsServiceImpl implements DocumentsService
 					/*------------------------------------------------------------------------------------------------*/
 					/* SET THE NEW FOLDER AS THE CURRENT FOLDER                                                       */
 					/*------------------------------------------------------------------------------------------------*/
+
+					// Le dossier en cours deviendra le dossier courant à l'itération suivante
 
 					curFolder = newFolder;
 
@@ -224,7 +264,7 @@ public class DocumentsServiceImpl implements DocumentsService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	private long updateSizes(TreeItem item) // méthode récursive pour calculer les tailles des dossiers à partir de la taille de tous les éléments contenus
+	private long updateSizes(TreeItem item) // méthode récursive pour calculer les tailles des dossiers à partir de la taille de tous les fichiers fils
 	{
 		long result = 0;
 
