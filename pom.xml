@@ -27,8 +27,9 @@
         <maven.compiler.source>12</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
 
-        <sonar.organization>omorlotti</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>omorlotti</sonar.organization>
+        <sonar.language>java</sonar.language>
     </properties>
 
     <dependencies>
