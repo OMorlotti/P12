@@ -14,69 +14,139 @@
 {% block content %}
 
 <div class="card mx-auto">
-	<h5 class="card-header">Configuration de l'application</h5>
+	<h5 class="card-header"><i class="bi bi-gear"></i> Configuration de l'application</h5>
 	<div class="card-body">
 		<form action="/config" method="POST" modelAttribute="config">
-			<div class="form-group">
-				<label for="inputEmail1">Adresse e-mail</label>
-				<input class="form-control" type="email" name="email" value="{{ config['email'] }}" id="inputEmail1" />
-			</div>
+
+			<h2><span class="badge badge-primary">Application</span></h2>
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputPassword1">Mot de passe de l'application</label>
-						<input class="form-control" type="password" name="password" value="{{ config['password'] }}" id="inputPassword1" />
+						<label for="inputUsername">Nom d'utilisateur</label>
+						<input class="form-control form-control-sm" type="text" name="username" value="{{ config['username'] }}" id="inputUsername" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputPassword2">Vérification mot de passe</label>
-						<input class="form-control" type="password" xxxx="password" value="{{ config['password'] }}" id="inputPassword2" />
+						<label for="inputEmail">Adresse e-mail</label>
+						<input class="form-control form-control-sm" type="email" name="email" value="{{ config['email'] }}" id="inputEmail" />
 					</div>
 				</div>
 			</div>
-			<hr />
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputSMTPHost">SMTP Host</label>
-						<input class="form-control" type="text" name="smtp_host" value="{{ config['smtp_host'] }}" id="inputSMTPHost" />
+						<label for="inputPassword1">Mot de passe</label>
+						<input class="form-control form-control-sm" type="password" name="password" value="{{ config['password'] }}" id="inputPassword1" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputSMTPPort">SMTP Port</label>
-						<input class="form-control" type="number" name="smtp_port" value="{{ config['smtp_port'] }}" id="inputSMTPPort" />
+						<label for="inputPassword2">Vérification du mot de passe</label>
+						<input class="form-control form-control-sm" type="password" xxxx="password" value="{{ config['password'] }}" id="inputPassword2" />
 					</div>
 				</div>
 			</div>
+
+			<h2><span class="badge badge-primary">WooCommerce</span></h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputWooCommerceConsumerKey">Consumer Key</label>
+						<input class="form-control form-control-sm" type="text" name="woocommerce_consumer_key" value="{{ config['woocommerce_consumer_key'] }}" id="inputWooCommerceConsumerKey" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputWooCommerceConsumerSecret">Consumer Secret</label>
+						<input class="form-control form-control-sm" type="password" name="woocommerce_consumer_secret" value="{{ config['woocommerce_consumer_secret'] }}" id="inputWooCommerceConsumerSecret" />
+					</div>
+				</div>
+			</div>
+
+			<h2><span class="badge badge-primary">Drive GitHub</span></h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputGitHubRepo">Repository</label>
+						<input class="form-control form-control-sm" type="text" name="github_repo" value="{{ config['github_repo'] }}" id="inputGitHubRepo" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputGitHubBranch">Branch</label>
+						<input class="form-control form-control-sm" type="text" name="github_branch" value="{{ config['github_branch'] }}" id="inputGitHubBranch" />
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputGitHubUsername">Username</label>
+						<input class="form-control form-control-sm" type="text" name="github_username" value="{{ config['github_username'] }}" id="inputGitHubUsername" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputGitHubToken">Token</label>
+						<input class="form-control form-control-sm" type="password" name="github_token" value="{{ config['github_token'] }}" id="inputGitHubToken" />
+					</div>
+				</div>
+			</div>
+
+			<h2><span class="badge badge-primary">SMTP</span></h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputSMTPHost">Host</label>
+						<input class="form-control form-control-sm" type="text" name="smtp_host" value="{{ config['smtp_host'] }}" id="inputSMTPHost" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="inputSMTPPort">Port</label>
+						<input class="form-control form-control-sm" type="number" name="smtp_port" value="{{ config['smtp_port'] }}" id="inputSMTPPort" />
+					</div>
+				</div>
+			</div>
+
 			<div class="form-group">
-				<label for="inputSMTPMode">SMTP Mode</label>
-				<select class="form-control" type="text" name="smtp_mode" id="inputSMTPMode">
+				<label for="inputSMTPMode">Mode</label>
+				<select class="custom-select custom-select-sm" type="text" name="smtp_mode" id="inputSMTPMode">
 					<option value="0"{% if config['smtp_mode'] == '0' %} selected="selected"{% endif %}>Sans cryptage</option>
 					<option value="1"{% if config['smtp_mode'] == '1' %} selected="selected"{% endif %}>Cryptage SSL</option>
 					<option value="2"{% if config['smtp_mode'] == '2' %} selected="selected"{% endif %}>Cryptage TLS</option>
 				</select>
 			</div>
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputSMTPUser">SMTP Utilisateur</label>
-						<input class="form-control" type="text" name="smtp_user" value="{{ config['smtp_user'] }}" id="inputSMTPUser" />
+						<label for="inputSMTPUser">Utilisateur</label>
+						<input class="form-control form-control-sm" type="text" name="smtp_user" value="{{ config['smtp_user'] }}" id="inputSMTPUser" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="inputSMTPPass">SMTP Mot de Passe</label>
-						<input class="form-control" type="password" name="smtp_pass" value="{{ config['smtp_pass'] }}" id="inputSMTPPass" />
+						<label for="inputSMTPPass">Mot de passe</label>
+						<input class="form-control form-control-sm" type="password" name="smtp_pass" value="{{ config['smtp_pass'] }}" id="inputSMTPPass" />
 					</div>
 				</div>
 			</div>
+
 			<hr />
+
 			<div class="text-right">
-				<button class="btn btn-secondary" type="reset">Annuler</button>
-				<button class="btn btn-primary" type="submit">Valider</button>
+				<button class="btn btn-outline-secondary" type="reset">Annuler</button>
+				<button class="btn btn-success" type="submit">Valider</button>
 			</div>
+
 		</form>
 	</div>
 </div>

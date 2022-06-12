@@ -1,12 +1,8 @@
 package xyz.morlotti.lemur.clients.github.service;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.math.BigInteger;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,78 +14,68 @@ public class GitHubImpl implements GitHub
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@Value("${github.repo}")
-	String gitRepo;
-
-	/*----------------------------------------------------------------------------------------------------------------*/
-
-	@Value("${github.commit_id:master}")
-	String gitCommitId;
-
-	/*----------------------------------------------------------------------------------------------------------------*/
-
 	@Autowired
 	private GitHubClient gitHubClients;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public GitHubUser me()
+	public GitHubUser me(String login)
 	{
-		return gitHubClients.me();
+		return gitHubClients.me(login);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public GitHubTree fileTree(String commitId)
+	public GitHubTree fileTree(String login, String repo, String branch)
 	{
-		return gitHubClients.fileTree(commitId, true);
+		return gitHubClients.fileTree(login, repo, branch, true);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<GitHubVersion> versions(String path)
+	public List<GitHubVersion> versions(String login, String repo, String path)
 	{
-		return gitHubClients.versions(path);
+		return gitHubClients.versions(login, repo, path);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public GitHubContent getContent(String path)
+	public GitHubContent getContent(String login, String repo, String path)
 	{
-		return gitHubClients.getContent(path);
+		return gitHubClients.getContent(login, repo, path);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void addFolder(String path, String name)
+	public void addFolder(String login, String repo, String branch, String path, String name)
 	{
 		if("/".equals(path))
 		{
-			addFile("/" + name, ".empty", new byte[] {});
+			addFile(login, repo, branch,"/" + name, ".empty", new byte[] {});
 		}
 		else
 		{
-			addFile(path + "/" + name, ".empty", new byte[] {});
+			addFile(login, repo, branch,path + "/" + name, ".empty", new byte[] {});
 		}
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void addFile(String path, String name, byte[] content)
+	public void addFile(String login, String repo, String branch, String path, String name, byte[] content)
 	{
-		updateFile(path, name, "", content);
+		updateFile(login, repo, branch, path, name, "", content);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void updateFile(String path, String name, String sha, byte[] content)
+	public void updateFile(String login, String repo, String branch, String path, String name, String sha, byte[] content)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -112,9 +98,9 @@ public class GitHubImpl implements GitHub
 
 			update.setSha(sha);
 
-			update.setBranch(gitCommitId);
+			update.setBranch(branch);
 
-			gitHubClients.updateFile(path + "/" + name, update);
+			gitHubClients.updateFile(login, repo, path + "/" + name, update);
 		}
 		catch(Exception e)
 		{
@@ -127,17 +113,17 @@ public class GitHubImpl implements GitHub
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void renameFile(String path, String oldName, String newName, String hash)
+	public void renameFile(String login, String repo, String branch, String path, String oldName, String newName, String hash)
 	{
-		GitHubContent content = gitHubClients.getContent(path + '/' + oldName);
+		GitHubContent content = gitHubClients.getContent(login, repo, path + '/' + oldName);
 
 		if(content != null)
 		{
 			try
 			{
-				addFile(path, newName, content.getDecodedContent());
+				addFile(login, repo, branch, path, newName, content.getDecodedContent());
 
-				deleteFile(path, oldName, hash);
+				deleteFile(login, repo, branch, path, oldName, hash);
 			}
 			catch(Exception e)
 			{
@@ -149,7 +135,7 @@ public class GitHubImpl implements GitHub
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void deleteFile(String path, String name, String hash)
+	public void deleteFile(String login, String repo, String branch, String path, String name, String hash)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -164,7 +150,7 @@ public class GitHubImpl implements GitHub
 
 		delete.setOwner("bot");
 
-		delete.setRepo(gitRepo);
+		delete.setRepo(repo);
 
 		delete.setPath(path + "/" + name);
 
@@ -172,7 +158,7 @@ public class GitHubImpl implements GitHub
 
 		delete.setSha(hash);
 
-		gitHubClients.deleteFile(path + "/" + name, delete);
+		gitHubClients.deleteFile(login, repo, path + "/" + name, delete);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 	}

@@ -22,7 +22,14 @@ public class ConfigServiceImpl implements ConfigService
 	@Override
 	public Map<String, String> getConfig()
 	{
-		return configRepository.findAll().stream().collect(Collectors.toMap(x -> x.getKey(), y -> y.getVal()));
+		try
+		{
+			return configRepository.findAll().stream().collect(Collectors.toMap(x -> x.getKey(), y -> y.getVal()));
+		}
+		catch(Exception e)
+		{
+			return new HashMap<>();
+		}
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

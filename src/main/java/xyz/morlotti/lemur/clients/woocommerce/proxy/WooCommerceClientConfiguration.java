@@ -1,16 +1,21 @@
 package xyz.morlotti.lemur.clients.woocommerce.proxy;
 
-import feign.RequestInterceptor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.beans.factory.annotation.Value;
-
 import java.util.Base64;
+import java.util.Map;
 import java.util.Random;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import feign.RequestInterceptor;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import xyz.morlotti.lemur.service.ConfigService;
 
 public class WooCommerceClientConfiguration
 {
@@ -28,17 +33,25 @@ public class WooCommerceClientConfiguration
 	@Value("${woocommerce.base_url}")
 	private String baseUrl;
 
-	@Value("${woocommerce.consumer_key}")
-	private String consumerKey;
+	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@Value("${woocommerce.consumer_secret}")
-	private String consumerSecret;
+	@Autowired
+	ConfigService configService;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Bean
 	public RequestInterceptor requestInterceptor()
 	{
+		/*------------------------------------------------------------------------------------------------------------*/
+
+		Map<String, String> config = configService.getConfig();
+
+		String consumerKey = config.getOrDefault("woocommerce_consumer_key", "");
+		String consumerSecret = config.getOrDefault("woocommerce_consumer_secret", "");
+
+		/*------------------------------------------------------------------------------------------------------------*/
+
 		return requestTemplate -> {
 
 			/*--------------------------------------------------------------------------------------------------------*/
@@ -57,7 +70,7 @@ public class WooCommerceClientConfiguration
 
 			try
 			{
-				signature = buildSignature(requestTemplate.method(), url, nonce, timestamp);
+				signature = buildSignature(requestTemplate.method(), url, consumerKey, consumerSecret, nonce, timestamp);
 			}
 			catch(Exception e)
 			{
@@ -66,7 +79,7 @@ public class WooCommerceClientConfiguration
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
- 			String header = buildHeader(nonce, timestamp, signature);
+ 			String header = buildHeader(consumerKey, nonce, timestamp, signature);
 
 			/*--------------------------------------------------------------------------------------------------------*/
 
@@ -74,11 +87,13 @@ public class WooCommerceClientConfiguration
 
 			/*--------------------------------------------------------------------------------------------------------*/
 		};
+
+		/*------------------------------------------------------------------------------------------------------------*/
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public String buildHeader(String nonce, String timestamp, String signature)
+	public String buildHeader(String consumerKey, String nonce, String timestamp, String signature)
 	{
 		StringBuilder stringBuilder = new StringBuilder("OAuth ");
 
@@ -95,7 +110,7 @@ public class WooCommerceClientConfiguration
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public String buildSignature(String method, String url, String nonce, String timestamp) throws Exception
+	public String buildSignature(String method, String url, String consumerKey, String consumerSecret, String nonce, String timestamp) throws Exception
 	{
 		String string = method.toUpperCase() + "&" + percentEncode(url) + "&" + percentEncode(
 			/*---*/ percentEncode("oauth_consumer_key") + "=" + percentEncode(consumerKey)

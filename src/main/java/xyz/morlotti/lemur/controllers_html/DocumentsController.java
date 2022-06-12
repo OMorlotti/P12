@@ -1,12 +1,12 @@
 package xyz.morlotti.lemur.controllers_html;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import xyz.morlotti.lemur.service.ConfigService;
 import xyz.morlotti.lemur.service.bean.TreeItem;
 import xyz.morlotti.lemur.service.DocumentsService;
 
@@ -17,8 +17,8 @@ public class DocumentsController
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@Value("${github.commit_id:master}")
-	String gitCommitId;
+	@Autowired
+	ConfigService configService;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
@@ -30,9 +30,15 @@ public class DocumentsController
 	@RequestMapping(value = "/documents", method = RequestMethod.GET)
 	public String documents(@RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
 	{
+		Map<String, String> config = configService.getConfig();
+
+		String login = config.getOrDefault("github_username", "");
+		String repo = config.getOrDefault("github_repo", "");
+		String branch = config.getOrDefault("github_branch", "");
+
 		try
 		{
-			Map<String, TreeItem> map = documentsService.getTree(gitCommitId);
+			Map<String, TreeItem> map = documentsService.getTree(login, repo, branch);
 
 			if(map.containsKey(path))
 			{
@@ -61,10 +67,15 @@ public class DocumentsController
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/documents/{commitId}", method = RequestMethod.GET)
-	public String documents(@PathVariable("commitId") String commitId, @RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
+	@RequestMapping(value = "/documents/{branch}", method = RequestMethod.GET)
+	public String documents(@PathVariable("branch") String branch, @RequestParam(name = "path", defaultValue = "/", required = false) String path, Model model)
 	{
-		Map<String, TreeItem> map = documentsService.getTree(commitId);
+		Map<String, String> config = configService.getConfig();
+
+		String login = config.getOrDefault("github_username", "");
+		String repo = config.getOrDefault("github_repo", "");
+
+		Map<String, TreeItem> map = documentsService.getTree(login, repo, branch);
 
 		if(map.containsKey(path))
 		{

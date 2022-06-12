@@ -25,7 +25,7 @@ public class DocumentsServiceImpl implements DocumentsService
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public Map<String, TreeItem> getTree(String commitId)
+	public Map<String, TreeItem> getTree(String login, String repo, String branch)
 	{
 		int currentId = 1;
 
@@ -33,7 +33,7 @@ public class DocumentsServiceImpl implements DocumentsService
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		GitHubTree tree = gitHub.fileTree(commitId);
+		GitHubTree tree = gitHub.fileTree(login, repo, branch);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
@@ -177,49 +177,49 @@ public class DocumentsServiceImpl implements DocumentsService
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public GitHubContent getContent(String path)
+	public GitHubContent getContent(String login, String repo, String path)
 	{
-		return gitHub.getContent(path);
+		return gitHub.getContent(login, repo, path);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void addFolder(String path, String name)
+	public void addFolder(String login, String repo, String branch, String path, String name)
 	{
-		gitHub.addFolder(path, name);
+		gitHub.addFolder(login, repo, branch, path, name);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void addFile(String path, String name, byte[] content)
+	public void addFile(String login, String repo, String branch, String path, String name, byte[] content)
 	{
-		gitHub.addFile(path, name, content);
+		gitHub.addFile(login, repo, branch, path, name, content);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void updateFile(String path, String name, String hash, byte[] content)
+	public void updateFile(String login, String repo, String branch, String path, String name, String hash, byte[] content)
 	{
-		gitHub.updateFile(path, name, hash, content);
+		gitHub.updateFile(login, repo, branch, path, name, hash, content);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void renameFile(String path, String oldName, String newName, String hash)
+	public void renameFile(String login, String repo, String branch, String path, String oldName, String newName, String hash)
 	{
-		gitHub.renameFile(path, oldName, newName, hash);
+		gitHub.renameFile(login, repo, branch, path, oldName, newName, hash);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public void deleteFile(String path, String name, String hash)
+	public void deleteFile(String login, String repo, String branch, String path, String name, String hash)
 	{
-		gitHub.deleteFile(path, name, hash);
+		gitHub.deleteFile(login, repo, branch, path, name, hash);
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/

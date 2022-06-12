@@ -7,17 +7,17 @@ import xyz.morlotti.lemur.clients.github.bean.GitHubContent;
 
 public interface DocumentsService
 {
-	Map<String, TreeItem> getTree(String commitId);
+	Map<String, TreeItem> getTree(String login, String repo, String branch);
 
-	GitHubContent getContent(String path);
+	GitHubContent getContent(String login, String repo, String path);
 
-	void addFolder(String path, String name);
+	void addFolder(String login, String repo, String branch, String path, String name);
 
-	void addFile(String path, String name, byte[] content);
+	void addFile(String login, String repo, String branch, String path, String name, byte[] content);
 
-	void updateFile(String path, String name, String hash, byte[] content);
+	void updateFile(String login, String repo, String branch, String path, String name, String hash, byte[] content);
 
-	void renameFile(String path, String oldName, String newName, String hash);
+	void renameFile(String login, String repo, String branch, String path, String oldName, String newName, String hash);
 
-	void deleteFile(String path, String name, String hash);
+	void deleteFile(String login, String repo, String branch, String path, String name, String hash);
 }

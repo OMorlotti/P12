@@ -18,43 +18,55 @@ public interface GitHubClient
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/users/${github.login}", produces = MediaType.APPLICATION_JSON_VALUE)
-	GitHubUser me();
+	@RequestMapping(method = RequestMethod.GET, value = "/users/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
+	GitHubUser me(
+		@PathVariable(value = "login") String login
+	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/repos/${github.login}/${github.repo}/git/trees/{commitId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/repos/{login}/{repo}/git/trees/{branch}", produces = MediaType.APPLICATION_JSON_VALUE)
 	GitHubTree fileTree(
-		@PathVariable(value = "commitId") String commitId,
+		@PathVariable(value = "login") String login,
+		@PathVariable(value = "repo") String repo,
+		@PathVariable(value = "branch") String branch,
 		@RequestParam(value = "recursive", required = false, defaultValue = "true") boolean recursive
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/repos/${github.login}/${github.repo}/commits?path={path}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/repos/{login}/{repo}/commits?path={path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	List<GitHubVersion> versions(
+		@PathVariable(value = "login") String login,
+		@PathVariable(value = "repo") String repo,
 		@PathVariable(value = "path") String path
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/repos/{login}/{repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	GitHubContent getContent(
+		@PathVariable(value = "login") String login,
+		@PathVariable(value = "repo") String repo,
 		@PathVariable(value = "path") String path
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.PUT, value = "/repos/{login}/{repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	void updateFile(
+		@PathVariable(value = "login") String login,
+		@PathVariable(value = "repo") String repo,
 		@PathVariable(value = "path") String path,
 		@RequestBody GitHubUpdate update
 	);
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/repos/${github.login}/${github.repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.DELETE, value = "/repos/{login}/{repo}/contents/{path}", produces = MediaType.APPLICATION_JSON_VALUE)
 	void deleteFile(
+		@PathVariable(value = "login") String login,
+		@PathVariable(value = "repo") String repo,
 		@PathVariable(value = "path") String path,
 		@RequestBody GitHubDelete delete
 	);
