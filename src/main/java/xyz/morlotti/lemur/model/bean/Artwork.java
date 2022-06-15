@@ -94,6 +94,9 @@ public class Artwork
 
 	public String getTagString()
 	{
+		// On stream tous les bridges, récupère les tag names, et on colle les tag names
+		// en une string séparée par des espaces
+
 		return artworkTag.stream().map(x -> x.getTagName()).collect(Collectors.joining(" "));
 	}
 }

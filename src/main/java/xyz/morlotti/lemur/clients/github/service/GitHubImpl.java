@@ -54,13 +54,17 @@ public class GitHubImpl implements GitHub
 	@Override
 	public void addFolder(String login, String repo, String branch, String path, String name)
 	{
+		// Sous git, on ne peut pas créer un dossier vide ! Pour le faire, on ajoute simplement au repo un fichier ".empty" dans le path que l'on souhaite créer
+
+		// De même, pour supprimer un dossier, il faut supprimer tous les fichiers et dossiers qu'il contient
+
 		if("/".equals(path))
 		{
-			addFile(login, repo, branch,"/" + name, ".empty", new byte[] {});
+			addFile(login, repo, branch,"/" + name, ".empty", new byte[] {}); // quand on est dans le dossier root, le path est "/"
 		}
 		else
 		{
-			addFile(login, repo, branch,path + "/" + name, ".empty", new byte[] {});
+			addFile(login, repo, branch,path + "/" + name, ".empty", new byte[] {}); // quand on est pas dans le dossier root, le path est "path"
 		}
 	}
 
@@ -79,7 +83,7 @@ public class GitHubImpl implements GitHub
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		while(path.startsWith("/"))
+		while(path.startsWith("/")) // GitHub demande re retirer dans les paths tous les "/" au debut
 		{
 			path = path.substring(1);
 		}
@@ -139,7 +143,7 @@ public class GitHubImpl implements GitHub
 	{
 		/*------------------------------------------------------------------------------------------------------------*/
 
-		while(path.startsWith("/"))
+		while(path.startsWith("/")) // GitHub demande re retirer dans les paths tous les "/" au debut
 		{
 			path = path.substring(1);
 		}
@@ -165,7 +169,7 @@ public class GitHubImpl implements GitHub
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	public static String toHex(byte[] bytes)
+	public static String toHex(byte[] bytes) // Pour afficher un hash en hexadécimal (chiffres allant de 0 (pour 0) à F pour 15))
 	{
 		BigInteger bi = new BigInteger(1, bytes);
 

@@ -10,6 +10,7 @@ import xyz.morlotti.lemur.model.bean.Config;
 import xyz.morlotti.lemur.model.repositories.ConfigRepository;
 
 @Service
+// Ici, on active pas les transactions car on veut persister les modifications dès qu'elles ont lieu
 public class ConfigServiceImpl implements ConfigService
 {
 	/*----------------------------------------------------------------------------------------------------------------*/

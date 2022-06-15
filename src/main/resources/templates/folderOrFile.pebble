@@ -24,6 +24,15 @@
         <a href="/documents?path={{ item.path|escape }}">{{ item.name|escape }}</a>
     {% endif %}
     </td>
+	<td style="width: 48px;">
+	    {% if type == 'file' %}
+		<button class="badge badge-pill badge-primary border" type="button" onclick="prompt('Lien permanent', location.origin + '/documents/download?path={{ item.path|escape }}');">
+		{% else %}
+		<button class="badge badge-pill badge-primary border" type="button" onclick="prompt('Lien permanent', location.origin + '/documents?path={{ item.path|escape }}');">
+		{% endif %}
+			<i class="bi bi-link"></i>
+		</button>
+	</td>
     <td style="width: 48px;">
 	    {% if type == 'file' %}
         <button class="badge badge-pill badge-primary border" type="button" data-op="rename" data-name="{{ item.name|escape }}" xxxxxxxx="xxxxxxxx">

@@ -11,7 +11,7 @@ public interface GitHub
 {
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	GitHubUser me(String login);
+	GitHubUser me(String login); // jamais utilisé dans le projet
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
@@ -19,7 +19,7 @@ public interface GitHub
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	List<GitHubVersion> versions(String login, String repo, String path);
+	List<GitHubVersion> versions(String login, String repo, String path);  // jamais utilisé dans le projet
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
