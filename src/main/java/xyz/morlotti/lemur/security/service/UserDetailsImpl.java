@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+// Mape la définition des users du programme sur celle de Spring
 public class UserDetailsImpl implements UserDetails
 {
 	/*----------------------------------------------------------------------------------------------------------------*/

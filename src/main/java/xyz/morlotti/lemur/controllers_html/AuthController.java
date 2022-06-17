@@ -87,7 +87,7 @@ public class AuthController
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+	@RequestMapping(value = "/sign-in", method = RequestMethod.GET) //formulaire
 	public ModelAndView signIn1(ModelMap model)
 	{
 		/*------------------------------------------------------------------------------------------------------------*/

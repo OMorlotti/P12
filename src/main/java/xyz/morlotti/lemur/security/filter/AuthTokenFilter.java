@@ -34,7 +34,7 @@ public class AuthTokenFilter extends OncePerRequestFilter
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@Override
+	@Override // Récupère le cookie qui contient le token JWT (à chaque requête)
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException
 	{
 		Cookie[] cookies = request.getCookies();

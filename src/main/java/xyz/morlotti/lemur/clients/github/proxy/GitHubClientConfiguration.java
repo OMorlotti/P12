@@ -31,7 +31,7 @@ public class GitHubClientConfiguration
 		String token    = config.getOrDefault("github_token"   , "");
 
 		/*------------------------------------------------------------------------------------------------------------*/
-
+		// insère un header Authorization avec login et token
 		return requestTemplate -> {
 
 			String data = username + ":" + token;

@@ -48,6 +48,7 @@ public class EmailSender
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
+		// On créé un mailer et on le configure
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
 		mailSender.setHost(/*------------*/(host));

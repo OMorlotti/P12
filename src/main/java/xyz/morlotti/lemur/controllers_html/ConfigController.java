@@ -44,6 +44,7 @@ public class ConfigController
 	@RequestMapping(value = "/config", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String addUpdateConfig(@RequestBody MultiValueMap<String, String> formData, Model model)
 	{
+		// Construit une map de clé/valeur de config à partir de l'objet MultiValueMap "formData"
 		Map<String, String> config = formData.entrySet().stream().filter(x -> x.getValue().size() > 0)
 		                                                         .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().get(0)))
 		;

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import xyz.morlotti.lemur.service.ConfigService;
 
+// Vérifie si le user existe et si password correct en lisant dans la config
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService
 {
@@ -38,7 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
 		}
 
 		/*------------------------------------------------------------------------------------------------------------*/
-
 
 		return UserDetailsImpl.build(appUsername, appPassword);
 

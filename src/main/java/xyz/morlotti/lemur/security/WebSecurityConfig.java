@@ -80,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	}
 
 	/*----------------------------------------------------------------------------------------------------------------*/
-
+	// Récupère le cookie qui contient le token JWT (à chaque requête)
 	@Bean
 	public AuthTokenFilter authJwtTokenFilter()
 	{
@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
-	@Bean
+	@Bean // définition d'encodeur qui gère des passwords en clair car le systeme de config qui gère les mdp n'est pas crypté
 	public PasswordEncoder passwordEncoder()
 	{
 		return new PasswordEncoder() {

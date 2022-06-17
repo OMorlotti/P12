@@ -28,6 +28,7 @@ public class TreeItem
 
 	private String name;
 
+	// Maps qui permettent la structure arborescente
 	private final Map<String, TreeItem> folders = new HashMap<>();
 
 	private final Map<String, TreeItem> files = new HashMap<>();
