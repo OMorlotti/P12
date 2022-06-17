@@ -23,7 +23,7 @@ public class DocumentsServiceImpl implements DocumentsService
 	private GitHub gitHub;
 
 	/*----------------------------------------------------------------------------------------------------------------*/
-
+	// Création de la structure arborescence + liste à plat de tout les fichiers et dossiers à partir des infos de GitHub
 	@Override
 	public Map<String, TreeItem> getTree(String login, String repo, String branch)
 	{

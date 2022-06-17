@@ -61,8 +61,8 @@ public class Artist
 
 	@JsonIgnore
 	@ToString.Exclude // Pour éviter la récursion
-	@OneToMany(mappedBy = "artwork", fetch = FetchType.EAGER)
-	private Set<ArtworkTag> artistTags;
+	@OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
+	private Set<ArtistTag> artistTags;
 
 	public String getTagString()
 	{

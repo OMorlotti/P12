@@ -185,7 +185,7 @@ tr.shown td.details-control {
                 'data'          : null,
                 'defaultContent': '',
             },
-            { 'className': 'table-value', 'data': 'tagString', 'visible': true },
+            { 'className': 'table-value', 'data': 'tagString', 'visible': false },
             { 'className': 'table-value', 'data': 'pseudo' },
             { 'className': 'table-value', 'data': 'firstName' },
             { 'className': 'table-value', 'data': 'lastName' },
