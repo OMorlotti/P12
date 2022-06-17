@@ -112,6 +112,8 @@ public class ArtistsServiceImpl implements ArtistsService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	// Associe à artistId la liste des tags dont la liste d'id est tagIds et supprime ceux qui ne sont plus associés
+
 	@Override
 	public void setTagsForArtistId(int artistId, List<String> tagIds) // tagIds la liste complète des tags que l'on veut associer à l'artiste
 	{
@@ -153,22 +155,28 @@ public class ArtistsServiceImpl implements ArtistsService
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on calcul les tagId des bridges "ArtistTag" que l'on doit supprimer
+		// *******************************************************************
+
 		Set<Integer> toBeRemovedSet = new HashSet<>(existingTags);
 		toBeRemovedSet.removeAll(wantedTags);
 
 		// on calcul les tagId des bridges "ArtistTag" que l'on doit ajouter
+		// *****************************************************************
+
 		Set<Integer> toBeAddedSet = new HashSet<>(wantedTags);
 		toBeAddedSet.removeAll(existingTags);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on transform le set de tagId à supprimer en set de ArtistTag à supprimer avec la map tagIdToArtistTag
+		// *****************************************************************************************************
 
 		List<ArtistTag> toBeRemovedList = toBeRemovedSet.stream().map(tagIdToArtistTag::get).collect(Collectors.toList());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on fabrique la liste de ArtistTag à ajouter à partir du set des tagId que l'on doit ajouter avec la map tadIdToTag
+		// ******************************************************************************************************************
 
 		List<ArtistTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtistTag(null, artist, tadIdToTag.get(x), null)).collect(Collectors.toList());
 

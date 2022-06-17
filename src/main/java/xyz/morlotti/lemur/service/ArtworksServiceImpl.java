@@ -116,6 +116,8 @@ public class ArtworksServiceImpl implements ArtworksService
 
 	/*----------------------------------------------------------------------------------------------------------------*/
 
+	// Associe à artworkId la liste des tags dont la liste d'id est tagIds et supprime ceux qui ne sont plus associés
+
 	@Override
 	public void setTagsById(int artworkId, List<String> tagIds) // tagIds la liste complète des tags que l'on veut associer à l'artwork
 	{
@@ -157,22 +159,26 @@ public class ArtworksServiceImpl implements ArtworksService
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on calcul les tagId des bridges "ArtistTag" que l'on doit supprimer
+		// *******************************************************************
 		Set<Integer> toBeRemovedSet = new HashSet<>(existingTags);
 		toBeRemovedSet.removeAll(wantedTags);
 
 		// on calcul les tagId des bridges "ArtistTag" que l'on doit ajouter
+		// *****************************************************************
 		Set<Integer> toBeAddedSet = new HashSet<>(wantedTags);
 		toBeAddedSet.removeAll(existingTags);
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on transform le set de tagId à supprimer en set de ArtistTag à supprimer avec la map tagIdToArtworkTag
+		// ******************************************************************************************************
 
 		List<ArtworkTag> toBeRemovedList = toBeRemovedSet.stream().map(tagIdToArtworkTag::get).collect(Collectors.toList());
 
 		/*------------------------------------------------------------------------------------------------------------*/
 
 		// on fabrique la liste de ArtistTag à ajouter à partir du set des tagId que l'on doit ajouter avec la map tadIdToTag
+		// ******************************************************************************************************************
 
 		List<ArtworkTag> toBeAddedList = toBeAddedSet.stream().map(x -> new ArtworkTag(null, artwork, tadIdToTag.get(x), null)).collect(Collectors.toList());
 
